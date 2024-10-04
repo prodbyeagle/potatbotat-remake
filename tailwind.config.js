@@ -8,6 +8,10 @@ module.exports = {
       fontFamily: {
         'mono': ['"Space Mono"', 'monospace'],
       },
+      colors: {
+        twitch: '#9146FF',
+        eagle: '#cb9dff',
+      },
     },
   },
   plugins: [],
