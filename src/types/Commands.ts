@@ -1,5 +1,5 @@
 // src/types/Commands.ts
-import { userRequires, botRequires } from '../components/constants/Permissions'; // Update import path accordingly
+import { userRequires, botRequires } from '../constants/Permissions'; // Update import path accordingly
 
 export interface Command {
    name: string;
