@@ -14,11 +14,9 @@ interface Partner {
 
 const Home: React.FC = () => {
    const [partner, setPartner] = useState<Partner | null>(null);
-   const [loading, setLoading] = useState<boolean>(true);
    const [partners, setPartners] = useState<Partner[]>([]);
    const [animationClass, setAnimationClass] = useState<string>('');
 
-   // Fetch partners data
    useEffect(() => {
       const fetchPartners = async () => {
          try {
@@ -26,10 +24,8 @@ const Home: React.FC = () => {
             const data = await response.json();
             setPartners(data.data);
             setPartner(data.data[0]);
-            setLoading(false);
          } catch (error) {
             console.error('Error fetching partners:', error);
-            setLoading(false);
          }
       };
 
@@ -62,20 +58,16 @@ const Home: React.FC = () => {
       return `Joined ${monthsDiff} Months and ${daysCount} days ago`;
    };
 
-   if (loading) {
-      return <div className="text-white">Loading partners...</div>;
-   }
-
    return (
-      <div className="flex flex-col items-center justify-center border border-neutral-600 h-screen bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl">
-         <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-10 shadow-lg relative z-10 flex flex-col items-center">
-            <div className="flex justify-start">
+      <div className="flex flex-col items-center justify-center border border-neutral-600 h-full bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl p-4 sm:p-10">
+         <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-6 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
+            <div className="flex items-center justify-center space-x-4"> {/* Flex-Container für Bild und Text */}
                <img
                   src="https://potat.app/tatoExplode.gif"
                   alt="PotatBotat Logo"
                   className="w-16 h-auto rounded-md shadow-lg"
                />
-               <h1 className="text-5xl font-bold mr-4"
+               <h1 className="text-4xl sm:text-5xl font-bold"
                   style={{
                      backgroundImage: 'url(https://cdn.7tv.app/emote/667c887f387822a16b8f57ed/3x.webp)',
                      filter: 'drop-shadow(#9d31a5 0px 0px .1px)',
@@ -96,16 +88,16 @@ const Home: React.FC = () => {
                   <img
                      src={partner.twitch_pfp}
                      alt={`${partner.display}'s profile`}
-                     className="w-24 h-24 rounded-full"
+                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-full"
                   />
-                  <div>
-                     <h2 className="text-xl font-bold" style={{ color: partner.user_color || 'white' }}>
+                  <div className="flex flex-col"> {/* Flex-Container für den Text */}
+                     <h2 className="text-lg sm:text-xl font-bold" style={{ color: partner.user_color || 'white' }}>
                         @{partner.display}
                      </h2>
                      <p className="text-gray-300">Followers: {partner.followers.toLocaleString()}</p>
                      <p className="text-gray-300">Commands: {partner.command_count}</p>
                      <p className="text-gray-300">{formatJoinedAt(partner.joined_at)}</p>
-                     <a href={partner.page_url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                     <a href={partner.page_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                         Visit Profile
                      </a>
                   </div>
