@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+// src/components/Commands/Commands.tsx
 
-interface Command {
-   name: string;
-   description: string;
-   title: string;
-   usage: string;
-   category: string;
-   aliases: string[];
-}
+import React, { useEffect, useState } from 'react';
+import CommandList from './CommandList';
+import CommandLoader from './CommandLoader';
+import { Command } from '../../types/Commands';
 
 const Commands: React.FC = () => {
    const [commands, setCommands] = useState<Command[]>([]);
@@ -32,18 +28,7 @@ const Commands: React.FC = () => {
    }, []);
 
    if (loading) {
-      return (
-         <div className="flex items-center justify-center h-screen bg-neutral-900/50 backdrop-blur-md">
-            <div className="flex flex-col items-center">
-               <img
-                  src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f30d/512.webp"
-                  alt="Loading Emoji"
-                  className="w-16 h-16"
-               />
-               <p className="text-lg text-white mt-4">Loading commands...</p>
-            </div>
-         </div>
-      );
+      return <CommandLoader />;
    }
 
    const filteredCommands = commands.filter(command => {
@@ -85,30 +70,11 @@ const Commands: React.FC = () => {
                   placeholder="Search commands..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-3 md:ml-2"
+                  className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-3 md:mx-2"
                />
             </div>
-
-            <div className="bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 shadow-lg h-[calc(100vh-60px)] overflow-y-auto ml-3 md:ml-2">
-               <h2 className="text-2xl font-bold text-white mb-4">Commands</h2>
-               <ul className="space-y-4">
-                  {filteredCommands.length > 0 ? (
-                     filteredCommands.map((command) => (
-                        <li key={command.name} className="p-4 bg-neutral-800/60 rounded-md shadow-md">
-                           <h3 className="text-lg font-semibold text-white">{command.title}</h3>
-                           <p className="text-gray-300">{command.description}</p>
-                           <p className="text-gray-400">Usage: <code>{command.usage}</code></p>
-                           <p className="text-gray-400">Category: {command.category}</p>
-                           <p className="text-gray-400">Aliases: {command.aliases.length > 0 ? command.aliases.join(', ') : 'none'}</p>
-                        </li>
-                     ))
-                  ) : (
-                     <li className="p-4 bg-neutral-800 rounded-md text-white">No commands found.</li>
-                  )}
-               </ul>
-            </div>
+            <CommandList commands={filteredCommands} />
          </div>
-
       </div>
    );
 };

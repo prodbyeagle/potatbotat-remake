@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-   const [menuOpen, setMenuOpen] = useState<boolean>(false); // State für das Hamburger-Menü
+   const [menuOpen, setMenuOpen] = useState<boolean>(false);
    const dropdownRef = useRef<HTMLUListElement | null>(null);
 
    const toggleDropdown = () => {
@@ -23,12 +23,11 @@ const Navbar: React.FC = () => {
    };
 
    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node; // Typanpassung
+      const target = event.target as Node;
 
       if (dropdownRef.current && !dropdownRef.current.contains(target)) {
          closeDropdown();
       }
-      // Überprüfe, ob target ein HTMLElement ist, bevor du closest aufrufst
       if (target instanceof HTMLElement && !target.closest('.hamburger')) {
          closeMenu();
       }
@@ -43,12 +42,12 @@ const Navbar: React.FC = () => {
    }, []);
 
    return (
-      <nav className="border border-neutral-600 bg-neutral-800/50 text-white text-md rounded-xl backdrop-blur-xl p-6 shadow-lg mb-8 flex items-center justify-between">
+      <nav className="border border-neutral-600 bg-neutral-800/50 text-white text-md rounded-xl backdrop-blur-xl p-6 shadow-lg mb-8 flex items-center justify-between z-50">
          <NavLink to="/" className="mr-4">
             <img
                src="https://potat.app/tatoExplode.gif"
                alt="Home"
-               className="w-10 h-10 object-contain"
+               className="w-10 h-10 object-contain hover:animate-spin"
             />
          </NavLink>
 
@@ -69,7 +68,7 @@ const Navbar: React.FC = () => {
             >
                Leaderboard
             </NavLink>
-            <li className="relative flex items-center">
+            {/* <li className="relative flex items-center">
                <button
                   onClick={toggleDropdown}
                   className={`py-2 px-4 rounded-md transition duration-300 hover:bg-neutral-600 text-left`}
@@ -113,10 +112,9 @@ const Navbar: React.FC = () => {
                      </li>
                   </ul>
                )}
-            </li>
+            </li> */}
          </div>
 
-         {/* Hamburger Menu für mobile Ansicht */}
          <div className="md:hidden flex items-center">
             <button onClick={toggleMenu} className="hamburger p-2 focus:outline-none">
                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +123,6 @@ const Navbar: React.FC = () => {
             </button>
          </div>
 
-         {/* Dropdown-Menü für mobile Ansicht */}
          {menuOpen && (
             <div className="absolute top-16 left-0 right-0 bg-neutral-800 rounded-md shadow-lg z-50">
                <ul className="flex flex-col space-y-1">

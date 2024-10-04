@@ -4,14 +4,15 @@
 
 :root {
    font-family: Space Grotesk, "Helvetica Neue", Helvetica, sans-serif;
+   user-select: none;
 }
 
 .fade-in {
-   animation: fadeIn 0.3s forwards;
+   animation: fadeIn 0.5s forwards;
 }
 
 .fade-out {
-   animation: fadeOut 0.3s forwards;
+   animation: fadeOut 0.5s forwards;
 }
 
 @keyframes fadeIn {
