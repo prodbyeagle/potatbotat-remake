@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import './index.css';
+import Commands from './components/Commands';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="bg-neutral-900 relative overflow-scroll h-screen">
+        {/* Hintergrundbild mit Opazität */}
+        <img
+          src="https://potat.app/Home.png"
+          alt="Background"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        />
+
+        <div className="container mx-auto p-4 relative z-10">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/commands" element={<Commands />} />
+            <Route path="/leaderboard" element={<div className="bg-neutral-800/80 backdrop-blur-xl border border-neutral-400 rounded-lg p-8 shadow-lg">Leaderboard Page</div>} />
+            <Route path="/utils" element={<div className="bg-neutral-800/80 backdrop-blur-xl border border-neutral-400 rounded-lg p-8 shadow-lg">Utils Page</div>} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
