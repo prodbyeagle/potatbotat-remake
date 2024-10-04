@@ -11,7 +11,7 @@ const Home: React.FC = () => {
    const [animationClass, setAnimationClass] = useState<string>('');
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedPaint, setSelectedPaint] = useState<string>('');
-   const [loading, setLoading] = useState<boolean>(true); // Loading state
+   const [loading, setLoading] = useState<boolean>(true);
 
    useEffect(() => {
       const fetchPartners = async () => {
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
          } catch (error) {
             console.error('Error fetching partners:', error);
          } finally {
-            setLoading(false); // Set loading to false after fetching
+            setLoading(false);
          }
       };
 
@@ -58,8 +58,9 @@ const Home: React.FC = () => {
                <img
                   src="https://potat.app/tatoExplode.gif"
                   alt="PotatBotat Logo"
-                  className="w-16 h-auto rounded-xl shadow-lg cursor-pointer duration-100 transition-all hover:scale-105"
+                  className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-600/60"
                   onClick={() => setIsModalOpen(true)}
+                  title='Click to Change the Paint.'
                />
                <h1 className="text-4xl sm:text-5xl font-bold"
                   style={{
@@ -76,13 +77,19 @@ const Home: React.FC = () => {
             <p className="text-lg text-white text-center my-6">
                An emote, entertainment, and utility chatbot
             </p>
-            <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2> {/* Header for featured partners */}
-            {loading ? ( // Show loading indicator while fetching partners
+            <p className="text-xl text-white text-center">
+               ⚠️: This Website is still INDEV
+            </p>
+            <p className="text-sm text-white/30 text-center">
+               Click the Logo Next to "PotatBotat"
+            </p>
+            <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2>
+            {loading ? (
                <p className="text-lg text-white">Loading partners...</p>
             ) : partner ? (
                <PartnerCard partner={partner} animationClass={animationClass} />
             ) : (
-               <p className="text-lg text-white">No partners available.</p> // Handle no partners
+               <p className="text-lg text-white">No partners available.</p>
             )}
          </div>
 
