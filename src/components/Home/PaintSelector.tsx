@@ -1,5 +1,3 @@
-// src/components/Home/PaintSelector.tsx
-
 import React from 'react';
 import Modal from '../Modal';
 
@@ -22,12 +20,12 @@ interface PaintSelectorProps {
 const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect }) => {
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
-         <h2 className="text-xl text-white mb-4">Select a Paint:</h2>
-         <div className="grid grid-cols-4 gap-4">
+         <h2 className="text-2xl font-semibold text-center text-white mb-6">Choose a Paint</h2>
+         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-6 p-4">
             {paints.map((paint, index) => (
                <div
                   key={index}
-                  className="relative w-60 h-32 cursor-pointer rounded-xl overflow-hidden transition-transform transform hover:scale-105 border border-neutral-600"
+                  className="relative w-80 h-20 cursor-pointer rounded-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-lg border border-neutral-600 bg-neutral-800"
                   onClick={() => onSelect(paint.url)}
                   title={paint.name}
                >
@@ -36,9 +34,18 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
                      alt={paint.name}
                      className="absolute inset-0 w-full h-full object-cover"
                   />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-sm text-center p-2 truncate">
+                     {paint.name}
+                  </div>
                </div>
             ))}
          </div>
+         <button
+            onClick={onClose}
+            className="mt-6 w-full bg-red-600 text-white py-2 rounded-lg transition hover:bg-red-700"
+         >
+            Close
+         </button>
       </Modal>
    );
 };

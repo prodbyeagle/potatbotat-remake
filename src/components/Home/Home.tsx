@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import PartnerCard from './PartnerCard';
 import PaintSelector from './PaintSelector';
 import { Partner } from '../../types/Home';
+import Stats from '../Stats';
 
 const Home: React.FC = () => {
    const [partner, setPartner] = useState<Partner | null>(null);
@@ -75,14 +76,15 @@ const Home: React.FC = () => {
                </h1>
             </div>
             <p className="text-lg text-white text-center my-6">
-               An emote, entertainment, and utility chatbot
+               A versatile chatbot for emotes, entertainment, and utilities.
             </p>
-            <p className="text-xl text-white text-center">
-               ⚠️: This Website is still INDEV
+            <p className="text-xl text-yellow-400 text-center">
+               ⚠️ This website is currently in development. Expect some bugs.
             </p>
-            <p className="text-sm text-white/30 text-center">
-               Click the Logo Next to "PotatBotat"
+            <p className="text-sm text-white/60 text-center">
+               Tip: Click the logo next to "PotatBotat" to change the paint theme.
             </p>
+
             <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2>
             {loading ? (
                <p className="text-lg text-white">Loading partners...</p>
@@ -91,7 +93,10 @@ const Home: React.FC = () => {
             ) : (
                <p className="text-lg text-white">No partners available.</p>
             )}
+
+            <Stats />
          </div>
+
 
          <PaintSelector
             isOpen={isModalOpen}
