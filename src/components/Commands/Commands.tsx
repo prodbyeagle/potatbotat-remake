@@ -40,14 +40,14 @@ const Commands: React.FC = () => {
    const categories = Array.from(new Set(commands.map(command => command.category)));
 
    return (
-      <div className="flex flex-col lg:flex-row h-screen bg-neutral-700/40 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
-         <aside className="w-full lg:w-1/4 bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 h-fit mb-4 lg:mb-0">
+      <div className="flex flex-col lg:flex-row h-screen duration-100 transition-all bg-neutral-700/40 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
+         <aside className="w-full lg:w-1/6 bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 h-fit mb-4 lg:mb-0">
             <h2 className="text-lg font-bold text-white mb-2">Categories</h2>
             <ul>
                <li>
                   <button
                      onClick={() => setSelectedCategory('all')}
-                     className={`block w-full mb-2 text-left p-2 rounded-md hover:bg-neutral-600 text-white ${selectedCategory === 'all' ? 'bg-neutral-600' : ''}`}>
+                     className={`block w-full mb-2 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-600 text-white ${selectedCategory === 'all' ? 'bg-neutral-600' : ''}`}>
                      All Categories
                   </button>
                </li>
@@ -55,7 +55,7 @@ const Commands: React.FC = () => {
                   <li key={category}>
                      <button
                         onClick={() => setSelectedCategory(category)}
-                        className={`block w-full mb-2 text-left p-2 rounded-md hover:bg-neutral-600 text-white ${selectedCategory === category ? 'bg-neutral-600' : ''}`}>
+                        className={`block w-full mb-2 text-left p-2 rounded-md hover:bg-neutral-600 duration-100 transition-all text-white ${selectedCategory === category ? 'bg-neutral-600' : ''}`}>
                         {category}
                      </button>
                   </li>
