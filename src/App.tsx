@@ -8,7 +8,7 @@ import Commands from './components/Commands';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="bg-neutral-900 relative overflow-scroll h-screen">
+      <div className="bg-neutral-900 relative">
         {/* Hintergrundbild mit Opazität */}
         <img
           src="https://potat.app/Home.png"

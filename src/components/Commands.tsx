@@ -32,8 +32,16 @@ const Commands: React.FC = () => {
    }, []);
 
    if (loading) {
-      return <div className="text-white">Loading commands...</div>;
+      return (
+         <div className="flex items-center justify-center h-screen bg-neutral-900/50 backdrop-blur-md">
+            <div className="flex flex-col items-center">
+               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-yellow-400 border-b-4 border-neutral-600"></div>
+               <p className="text-lg text-white mt-4">Loading commands...</p>
+            </div>
+         </div>
+      );
    }
+
 
    // Filter commands based on search term and selected category
    const filteredCommands = commands.filter(command => {
@@ -48,29 +56,29 @@ const Commands: React.FC = () => {
    return (
       <div className="flex h-screen">
          {/* Sidebar for categories */}
-         <aside className="w-1/4 bg-neutral-700 rounded-lg p-4 h-fit">
+         <aside className="w-1/4 bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 h-fit">
             <h2 className="text-lg font-bold text-white mb-2">Categories</h2>
             <ul>
                <li>
                   <button
                      onClick={() => setSelectedCategory('all')}
-                     className={`block w-full text-left p-2 rounded-md hover:bg-neutral-600 ${selectedCategory === 'all' ? 'bg-neutral-600' : ''}`}>
-                     All
+                     className={`block w-full text-left p-2 rounded-md hover:bg-neutral-600 text-yellow-400 ${selectedCategory === 'all' ? 'bg-neutral-600' : ''}`}>
+                     @all
                   </button>
                </li>
                {categories.map(category => (
                   <li key={category}>
                      <button
                         onClick={() => setSelectedCategory(category)}
-                        className={`block w-full text-left p-2 rounded-md hover:bg-neutral-600 ${selectedCategory === category ? 'bg-neutral-600' : ''}`}>
-                        {category}
+                        className={`block w-full mb-1 text-left p-2 rounded-md hover:bg-neutral-600 text-white ${selectedCategory === category ? 'bg-neutral-600' : ''}`}>
+                        @{category}
                      </button>
                   </li>
                ))}
             </ul>
          </aside>
 
-         <div className="flex-1 p-4">
+         <div className="flex-1 p-2">
             {/* Search input - fixed */}
             <div className="sticky top-0 bg-neutral-800 p-2 rounded-md z-10 mb-4">
                <input
@@ -83,7 +91,7 @@ const Commands: React.FC = () => {
             </div>
 
             {/* Container for commands with earlier overflow */}
-            <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-300 rounded-lg p-8 shadow-lg h-[calc(100vh-100px)] overflow-y-auto">
+            <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-8 shadow-lg h-[calc(100vh-200px)] overflow-y-auto">
                <h2 className="text-2xl font-bold text-white mb-4">Commands</h2>
                <ul className="space-y-4">
                   {filteredCommands.length > 0 ? (
