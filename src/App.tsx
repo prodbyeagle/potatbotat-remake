@@ -4,21 +4,36 @@ import Navbar from './components/Navbar';
 import Home from './components/Home/Home';
 import Commands from './components/Commands/Commands';
 import Leaderboard from './components/Leaderboard/Leaderboard';
+import NotFound from './components/NotFound';
 import './index.css';
 
-// Footer-Komponente
-// const Footer: React.FC = () => {
-//   return (
-//     <footer className="border border-neutral-600 bg-neutral-800/50 text-white text-center py-4 mt-8 rounded-xl backdrop-blur-xl flex items-center justify-center z-20">
-//       <p>Made by @prodbyeagle</p>
-//       <img
-//         src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f49c/512.webp"
-//         alt="Herz"
-//         className="w-6 h-6 ml-2"
-//       />
-//     </footer>
-//   );
-// };
+const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="border border-neutral-600 bg-neutral-800/50 text-white text-center py-6 mt-4 rounded-xl backdrop-blur-xl flex flex-col items-center justify-center space-y-2 z-20">
+      <p className="text-md text-neutral-400">&copy; {currentYear} PotatBotat. All Rights Reserved.</p>
+      <div className="flex items-center space-x-2 text-sm">
+        <p>
+          Made by{' '}
+          <a
+            href="https://twitter.com/prodbyeagle"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-eagle transition-colors"
+          >
+            @prodbyeagle
+          </a>
+        </p>
+        <img
+          src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f49c/512.webp"
+          alt="Herz"
+          className="w-6 h-6"
+        />
+      </div>
+    </footer>
+  );
+};
 
 const App: React.FC = () => {
   return (
@@ -36,8 +51,9 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/commands" element={<Commands />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </div>
     </Router>
