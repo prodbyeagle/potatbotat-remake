@@ -1,10 +1,11 @@
-// src/components/Leaderboard/LeaderboardEntry.tsx
-
 import React from 'react';
 import { LeaderboardEntryProps } from '../../types/Leaderboard';
 
+interface ExtendedLeaderboardEntryProps extends LeaderboardEntryProps {
+   placement: number;
+}
 
-const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ entry, type }) => {
+const LeaderboardEntry: React.FC<ExtendedLeaderboardEntryProps> = ({ entry, type, placement }) => {
    const renderStat = () => {
       switch (type) {
          case 'potatoes':
@@ -25,15 +26,44 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ entry, type }) => {
       }
    };
 
+   const getPlacementClass = () => {
+      switch (placement) {
+         case 1:
+            return 'gold-text';
+         case 2:
+            return 'silver-text';
+         case 3:
+            return 'bronze-text';
+         default:
+            return 'hover:text-purple-400'; // Verwendung von hover, wenn Platz >= 4
+      }
+   };
+
    return (
-      <li className="p-4 bg-neutral-800/60 rounded-md shadow-md">
-         <h3 className="text-lg font-semibold text-white">{entry.bestName}</h3>
-         {renderStat()}
-         {entry.farmName && (
-            <p className="text-gray-300">Farm: {entry.farmName} (Size: {entry.farmSize})</p>
-         )}
-         {entry.prestige && <p className="text-gray-400">Prestige: {entry.prestige}</p>}
-         <img src={entry.user_pfp} alt={entry.bestName} className="w-12 h-12 rounded-full mt-2" />
+      <li className="p-4 bg-neutral-800/60 rounded-md shadow-md flex items-center space-x-4">
+         <div className={`w-8 text-center font-bold ${getPlacementClass()}`}>
+            #{placement}
+         </div>
+
+         <img src={entry.user_pfp} alt={entry.bestName} className="w-12 h-12 rounded-full" />
+
+         <div className="flex-1">
+            {/* Twitch link with hover effect */}
+            <a
+               href={`https://twitch.tv/${entry.bestName.toLowerCase()}`}
+               target="_blank"
+               rel="noopener noreferrer"
+               style={{ color: placement <= 3 ? undefined : entry.user_color || '#FFFFFF' }} // Fallback auf Weiß, wenn user_color null ist
+               className={`text-lg font-medium ${placement <= 3 ? getPlacementClass() : ''} transition-all duration-300 hover:font-normal hover:text-xl hover:underline`}
+            >
+               {entry.bestName}
+            </a>
+            {renderStat()}
+            {entry.farmName && (
+               <p className="text-gray-300">Farm: {entry.farmName} (Size: {entry.farmSize})</p>
+            )}
+            {entry.prestige && <p className="text-gray-400">Prestige: {entry.prestige}</p>}
+         </div>
       </li>
    );
 };

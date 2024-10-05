@@ -1,5 +1,3 @@
-// src/components/Leaderboard/Leaderboard.tsx
-
 import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
 import LeaderboardEntry from './LeaderboardEntry';
@@ -53,12 +51,12 @@ const Leaderboard: React.FC = () => {
                   placeholder="Search players..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-3 md:ml-2"
+                  className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-0 md:ml-2"
                />
             </div>
 
             {/* Leaderboard Content */}
-            <div className="bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 shadow-lg h-[calc(100vh-60px)] overflow-y-auto ml-3 md:ml-2">
+            <div className="bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-4 shadow-lg h-[calc(100vh-60px)] overflow-y-auto ml-0 md:ml-2">
                <h2 className="text-2xl font-bold text-white mb-4">Leaderboard</h2>
 
                <ul className="space-y-4">
