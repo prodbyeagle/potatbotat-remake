@@ -21,7 +21,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner, animationClass }) =>
    };
 
    return (
-      <div className={`mt-8 p-4 bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg flex items-center space-x-4 transition-all duration-300 ${animationClass}`}>
+      <div className={`mt-8 p-4 bg-transparent border border-neutral-600 rounded-xl flex items-center space-x-4 transition-all duration-100 ${animationClass}`}>
          <img
             src={partner.twitch_pfp}
             alt={`${partner.display}'s profile`}

@@ -40,7 +40,7 @@ const Commands: React.FC = () => {
    const categories = Array.from(new Set(commands.map(command => command.category)));
 
    return (
-      <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white z-auto">
+      <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
          <aside className="w-full lg:w-1/6 bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 lg:h-auto mb-4 lg:mb-0">
             <h2 className="text-lg font-bold text-white mb-2">Categories</h2>
             <ul>
@@ -65,13 +65,13 @@ const Commands: React.FC = () => {
 
          {/* Hauptinhalt */}
          <div className="flex-1">
-            <div className="sticky top-0 rounded-md z-auto mb-2">
+            <div className="relative mb-2 z-20">
                <input
                   type="text"
                   placeholder="Search commands..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-2"
+                  className="w-full p-2 rounded-xl bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:shadow-2xl mx-2"
                />
             </div>
             <CommandList commands={filteredCommands} />

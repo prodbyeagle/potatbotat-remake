@@ -11,7 +11,7 @@ interface LeaderboardCategoryProps {
 
 const LeaderboardCategory: React.FC<LeaderboardCategoryProps> = ({ categories, type, setType }) => {
    return (
-      <aside className="w-full lg:w-1/6 bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 h-fit mb-4 lg:mb-0">
+      <aside className="w-full lg:w-1/6 bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-4 h-fit mb-4 lg:mb-0">
          <h2 className="text-lg font-bold text-white mb-2">Categories</h2>
          <ul>
             {categories.map(category => (
