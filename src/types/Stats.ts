@@ -5,6 +5,7 @@ export interface StatsData {
    };
    twitch: {
       activeChannels: number;
+      usersSeen: number;
    };
    potato: {
       total: number;
