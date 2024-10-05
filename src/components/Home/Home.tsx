@@ -1,9 +1,8 @@
-// src/components/Home/Home.tsx
-
 import React, { useEffect, useState } from 'react';
 import PartnerCard from './PartnerCard';
 import PaintSelector from './PaintSelector';
 import { Partner } from '../../types/Home';
+import { Paint } from '../../types/Paint';
 import Stats from '../Stats';
 
 const Home: React.FC = () => {
@@ -11,7 +10,11 @@ const Home: React.FC = () => {
    const [partners, setPartners] = useState<Partner[]>([]);
    const [animationClass, setAnimationClass] = useState<string>('');
    const [isModalOpen, setIsModalOpen] = useState(false);
-   const [selectedPaint, setSelectedPaint] = useState<string>('');
+   const [selectedPaint, setSelectedPaint] = useState<Paint>({
+      gradient: 'radial-gradient(circle, #ffe5b8 10%, #fff 25%, #fe8b8b 35%, #fe9fc8 50%, #ff388e 75%, #ff006f 100%)',
+      name: 'Default Paint',
+      shadow: 'drop-shadow(#ff007b 0px 0px 0.1px) drop-shadow(#ff007b 0px 0px 4px)', // Default shadow
+   });
    const [loading, setLoading] = useState<boolean>(true);
 
    useEffect(() => {
@@ -21,7 +24,6 @@ const Home: React.FC = () => {
             const data = await response.json();
             setPartners(data.data);
             setPartner(data.data[0]);
-            setSelectedPaint('https://cdn.7tv.app/emote/667c887f387822a16b8f57ed/4x.webp');
          } catch (error) {
             console.error('Error fetching partners:', error);
          } finally {
@@ -47,8 +49,8 @@ const Home: React.FC = () => {
       return () => clearInterval(interval);
    }, [partners]);
 
-   const handlePaintSelect = (paintUrl: string) => {
-      setSelectedPaint(paintUrl);
+   const handlePaintSelect = (paint: Paint) => {
+      setSelectedPaint(paint);
       setIsModalOpen(false);
    };
 
@@ -65,16 +67,18 @@ const Home: React.FC = () => {
                />
                <h1 className="text-4xl sm:text-5xl font-bold"
                   style={{
-                     backgroundImage: `url(${selectedPaint})`,
-                     filter: 'drop-shadow(#9d31a5 0px 0px .1px)',
+                     backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
+                     filter: selectedPaint.shadow, // Anwendung des Schattens hier
                      WebkitBackgroundClip: 'text',
                      backgroundClip: 'text',
                      color: 'transparent',
                      backgroundSize: '100% auto',
+                     display: 'inline-block',
                   }}>
                   PotatBotat
                </h1>
             </div>
+
             <p className="text-lg text-white text-center my-6">
                A versatile chatbot for emotes, entertainment, and utilities.
             </p>
@@ -96,7 +100,6 @@ const Home: React.FC = () => {
 
             <Stats />
          </div>
-
 
          <PaintSelector
             isOpen={isModalOpen}
