@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/commands"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-300 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-600'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-600'}`
                }
             >
                Commands
