@@ -6,6 +6,8 @@ import Commands from './components/Commands/Commands';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 import NotFound from './components/NotFound';
 import './index.css';
+import Redirect from './components/Utils/Redirect';
+import ApiDocs from './components/Utils/ApiDocs';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -54,6 +56,8 @@ const App: React.FC = () => {
             <Route path="/commands" element={<Commands />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/redirect" element={<Redirect />} />
+            <Route path="/api/docs" element={<ApiDocs />} />
           </Routes>
           <Footer />
         </div>
