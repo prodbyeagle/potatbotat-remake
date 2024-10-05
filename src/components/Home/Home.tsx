@@ -12,10 +12,22 @@ const Home: React.FC = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedPaint, setSelectedPaint] = useState<Paint>({
       gradient: 'radial-gradient(circle, #ffe5b8 10%, #fff 25%, #fe8b8b 35%, #fe9fc8 50%, #ff388e 75%, #ff006f 100%)',
-      name: 'Default Paint',
-      shadow: 'drop-shadow(#ff007b 0px 0px 0.1px) drop-shadow(#ff007b 0px 0px 4px)', // Default shadow
+      name: 'erm @prodbyeagle',
+      shadow: 'drop-shadow(#ff007b 0px 0px 0.1px) drop-shadow(#ff007b 0px 0px 4px)',
    });
    const [loading, setLoading] = useState<boolean>(true);
+
+   useEffect(() => {
+      const savedPaint = localStorage.getItem('selectedPaint');
+      if (savedPaint) {
+         try {
+            const paintData = JSON.parse(savedPaint);
+            setSelectedPaint(paintData);
+         } catch (error) {
+            console.error('Error parsing saved paint:', error);
+         }
+      }
+   }, []);
 
    useEffect(() => {
       const fetchPartners = async () => {
@@ -51,6 +63,7 @@ const Home: React.FC = () => {
 
    const handlePaintSelect = (paint: Paint) => {
       setSelectedPaint(paint);
+      localStorage.setItem('selectedPaint', JSON.stringify(paint));
       setIsModalOpen(false);
    };
 
@@ -68,7 +81,7 @@ const Home: React.FC = () => {
                <h1 className="text-4xl sm:text-5xl font-bold"
                   style={{
                      backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
-                     filter: selectedPaint.shadow, // Anwendung des Schattens hier
+                     filter: selectedPaint.shadow,
                      WebkitBackgroundClip: 'text',
                      backgroundClip: 'text',
                      color: 'transparent',
