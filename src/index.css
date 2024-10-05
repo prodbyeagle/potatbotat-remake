@@ -40,3 +40,68 @@
       transform: translateY(10px);
    }
 }
+
+.eagle-text {
+   background-clip: text;
+   -webkit-background-clip: text;
+   animation: shine 2s linear infinite;
+   color: #d683ff;
+   -webkit-mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   -webkit-mask-size: 200%;
+   mask-size: 200%;
+}
+
+.bronze-text {
+   position: relative;
+   display: inline-block;
+   animation: shine 2s linear infinite;
+   color: rgb(184, 117, 31);
+   -webkit-mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   -webkit-mask-size: 200%;
+   mask-size: 200%;
+}
+
+.silver-text {
+   position: relative;
+   display: inline-block;
+   animation: shine 2s linear infinite;
+   color: silver;
+   -webkit-mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   -webkit-mask-size: 200%;
+   mask-size: 200%;
+}
+
+.gold-text {
+   position: relative;
+   display: inline-block;
+   animation: shine 2s linear infinite;
+   color: gold;
+   -webkit-mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   -webkit-mask-size: 200%;
+   mask-size: 200%;
+}
+
+.shine-text {
+   background-clip: text;
+   -webkit-background-clip: text;
+   animation: shine 2s linear infinite;
+   color: #7c7c7c;
+   -webkit-mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   mask-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.6) 30%, #fff 50%, rgba(255, 255, 255, 0.6) 70%);
+   -webkit-mask-size: 200%;
+   mask-size: 200%;
+}
+
+@keyframes shine {
+   from {
+      -webkit-mask-position: 150%;
+   }
+
+   to {
+      -webkit-mask-position: -50%;
+   }
+}
