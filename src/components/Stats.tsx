@@ -24,58 +24,17 @@ const Stats: React.FC = () => {
       const socket = new WebSocket('wss://stats.potat.app');
 
       socket.onopen = () => {
-         console.log('WebSocket connected');
       };
 
-      socket.onmessage = (event) => {
-         console.log('Raw WebSocket data received:', event.data);
+      socket.onmessage = async (event) => {
 
          try {
-            //? this can be coded better it works so...
             const newStats = JSON.parse(event.data);
             if (newStats && newStats.data) {
-               switch (newStats.topic) {
-                  case 'stats/commands-executed':
-                     setStats(prevStats => {
-                        const currentStats = prevStats ?? {
-                           misc: { commandsUsed: 0, emotesAdded: 0 },
-                           twitch: { activeChannels: 0 },
-                           potato: { total: 0, updateCount: 0 }
-                        };
+               const update = newStats.data;
+               const topic = newStats.topic;
 
-                        return {
-                           ...currentStats,
-                           misc: {
-                              ...currentStats.misc,
-                              commandsUsed: newStats.data.totalCount,
-                           },
-                        };
-                     });
-                     break;
-
-                  case 'stats/potato-update':
-                     console.log('Potato update data:', newStats.data);
-                     setStats(prevStats => {
-                        const currentStats = prevStats ?? {
-                           misc: { commandsUsed: 0, emotesAdded: 0 },
-                           twitch: { activeChannels: 0 },
-                           potato: { total: 0, updateCount: 0 }
-                        };
-
-                        return {
-                           ...currentStats,
-                           potato: {
-                              ...currentStats.potato,
-                              total: newStats.data.totalCount,
-                              updateCount: newStats.data.updateCount ?? currentStats.potato.updateCount
-                           }
-                        };
-                     });
-                     break;
-
-                  default:
-                     console.warn('Unhandled topic:', newStats.topic, newStats.data);
-               }
+               await processStatsUpdate(topic, update);
             } else {
                console.warn('Unexpected data format:', newStats);
             }
@@ -99,6 +58,54 @@ const Stats: React.FC = () => {
       };
    }, []);
 
+   const processStatsUpdate = async (topic: string, update: any) => {
+      setStats(prevStats => {
+         const currentStats = prevStats ?? {
+            misc: { commandsUsed: 0, emotesAdded: 0 },
+            twitch: { activeChannels: 0, usersSeen: 0 },
+            potato: { total: 0, updateCount: 0 },
+         };
+
+         switch (topic) {
+            case 'stats/commands-executed':
+               currentStats.misc.commandsUsed = update.totalCount;
+               break;
+            case 'stats/new-user':
+               currentStats.twitch.usersSeen += 1;
+               break;
+            case 'stats/active-channels':
+               currentStats.twitch.activeChannels = update.activeCount;
+               break;
+            case 'stats/emote-actions':
+               if (update.action === 'ADD') {
+                  currentStats.misc.emotesAdded += 1;
+               }
+               break;
+            case 'stats/potato-update':
+               const updateCount = update.updateCount;
+               const promises: Promise<void>[] = [];
+               for (let i = 0; i < updateCount; i++) {
+                  promises.push(
+                     new Promise(resolve => {
+                        currentStats.potato.total += 1;
+                        setTimeout(resolve, Math.min(15, 5000 / updateCount));
+                     })
+                  );
+               }
+
+               Promise.all(promises).then(() => {
+                  setStats(currentStats);
+               });
+               return currentStats;
+            default:
+               console.warn('Unhandled topic:', topic, update);
+         }
+
+         return { ...currentStats };
+      });
+   };
+
+
    if (loading) {
       return <p className="text-gray-300">Loading stats...</p>;
    }
@@ -108,15 +115,25 @@ const Stats: React.FC = () => {
    }
 
    const {
-      misc: { commandsUsed } = { commandsUsed: 0},
+      misc: { commandsUsed, emotesAdded } = { commandsUsed: 0, emotesAdded: 0 },
+      twitch: { activeChannels, usersSeen } = { activeChannels: 0, usersSeen: 0 },
       potato: { total = 0 } = { total: 0 },
    } = stats;
 
    return (
-      <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl shadow-md p-4 mt-6">
-         <h2 className="text-lg font-bold text-white mb-2">Bot Stats</h2>
+      <div className="bg-transparent backdrop-blur-xl border transition-all duration-100 border-neutral-600 rounded-xl shadow-md p-4 mt-6">
+         <h2 className="text-lg text-center font-bold text-white mb-2">Some Bot Stats:</h2>
          <div className="text-gray-400 mb-1">
             <span className="font-semibold">Commands executed:</span> {commandsUsed.toLocaleString()}
+         </div>
+         <div className="text-gray-400 mb-1">
+            <span className="font-semibold">Emotes added:</span> {emotesAdded.toLocaleString()}
+         </div>
+         <div className="text-gray-400 mb-1">
+            <span className="font-semibold">Active channels:</span> {activeChannels.toLocaleString()}
+         </div>
+         <div className="text-gray-400 mb-1">
+            <span className="font-semibold">Users seen:</span> {usersSeen.toLocaleString()}
          </div>
          <div className="text-gray-400 mb-1">
             <span className="font-semibold">Potatoes farmed:</span> {total.toLocaleString()}
