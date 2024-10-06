@@ -32,7 +32,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner, animationClass }) =>
                @{partner.display}
             </h2>
             <p className="text-gray-300">Followers: {partner.followers.toLocaleString()}</p>
-            <p className="text-gray-300">Commands: {partner.command_count}</p>
+            <p className="text-gray-300">Commands Used: {partner.command_count}</p>
             <p className="text-gray-300">{formatJoinedAt(partner.joined_at)}</p>
             <a href={partner.page_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                Visit Profile
