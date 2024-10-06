@@ -36,14 +36,10 @@ const Leaderboard: React.FC = () => {
       entry.bestName.toLowerCase().includes(searchTerm.toLowerCase())
    );
 
-   const categories: LeaderboardType[] = ['potatoes', 'trivia', 'scramble', 'paints', 'badges', 'emoteschannel', 'emotesuser'];
-
    return (
       <div className="flex flex-col lg:flex-row lg:h-screen border border-neutral-600 bg-neutral-700/40 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
-         {/* Sidebar: LeaderboardCategory */}
-         <LeaderboardCategory categories={categories} type={type} setType={setType} />
+         <LeaderboardCategory type={type} setType={setType} />
 
-         {/* Main Content */}
          <div className="flex-1">
             <div className="sticky top-0 rounded-md z-auto mb-2">
                <input
@@ -70,7 +66,15 @@ const Leaderboard: React.FC = () => {
                         />
                      ))
                   ) : (
-                     <li className="p-4 bg-neutral-800 rounded-md text-white">No players found.</li>
+                     <li className="flex flex-col items-center justify-center p-4 bg-transparent rounded-md text-white text-center">
+                        <img
+                           src="https://cdn.7tv.app/emote/60ae6a7b117ec68ca434404e/4x.webp"
+                           alt="No Players Found"
+                           className="w-32 h-32 mb-4 hover:animate-pulse"
+                        />
+                        <h3 className="text-xl font-semibold mb-2">😢 No players found.</h3>
+                        <p className="text-gray-400">Try searching for a different name or check back later!</p>
+                     </li>
                   )}
                </ul>
             </div>

@@ -35,7 +35,7 @@ const LeaderboardEntry: React.FC<ExtendedLeaderboardEntryProps> = ({ entry, type
          case 3:
             return 'bronze-text';
          default:
-            return 'hover:text-purple-400'; // Verwendung von hover, wenn Platz >= 4
+            return '';
       }
    };
 
@@ -48,12 +48,11 @@ const LeaderboardEntry: React.FC<ExtendedLeaderboardEntryProps> = ({ entry, type
          <img src={entry.user_pfp} alt={entry.bestName} className="w-12 h-12 rounded-full" />
 
          <div className="flex-1">
-            {/* Twitch link with hover effect */}
             <a
                href={`https://twitch.tv/${entry.bestName.toLowerCase()}`}
                target="_blank"
                rel="noopener noreferrer"
-               style={{ color: placement <= 3 ? undefined : entry.user_color || '#FFFFFF' }} // Fallback auf Weiß, wenn user_color null ist
+               style={{ color: placement <= 3 ? undefined : entry.user_color || '#FFFFFF' }}
                className={`text-lg font-medium ${placement <= 3 ? getPlacementClass() : ''} transition-all duration-300 hover:font-normal hover:text-xl hover:underline`}
             >
                {entry.bestName}
