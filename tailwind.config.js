@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         eagle: '#cb9dff',
       },
+      maxHeight: {
+        '150': '600px',
+      },
     },
   },
   plugins: [],
