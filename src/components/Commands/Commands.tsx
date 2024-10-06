@@ -4,12 +4,13 @@ import React, { useEffect, useState } from 'react';
 import CommandList from './CommandList';
 import CommandLoader from './CommandLoader';
 import { Command } from '../../types/Commands';
+import { commandCategories } from '../../constants/Commands';
 
 const Commands: React.FC = () => {
    const [commands, setCommands] = useState<Command[]>([]);
    const [loading, setLoading] = useState<boolean>(true);
    const [searchTerm, setSearchTerm] = useState<string>('');
-   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
 
    useEffect(() => {
       const fetchCommands = async () => {
@@ -33,11 +34,11 @@ const Commands: React.FC = () => {
 
    const filteredCommands = commands.filter(command => {
       const matchesSearch = command.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'all' || command.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'ALL' || command.category === selectedCategory;
       return matchesSearch && matchesCategory;
    });
 
-   const categories = Array.from(new Set(commands.map(command => command.category)));
+   const categories = Object.keys(commandCategories);
 
    return (
       <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
@@ -46,8 +47,8 @@ const Commands: React.FC = () => {
             <ul>
                <li>
                   <button
-                     onClick={() => setSelectedCategory('all')}
-                     className={`block w-full mb-2 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-600 text-white ${selectedCategory === 'all' ? 'bg-neutral-600' : ''}`}>
+                     onClick={() => setSelectedCategory('ALL')}
+                     className={`block w-full mb-2 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-600 text-white ${selectedCategory === 'ALL' ? 'bg-neutral-600' : ''}`}>
                      All Categories
                   </button>
                </li>
@@ -56,7 +57,7 @@ const Commands: React.FC = () => {
                      <button
                         onClick={() => setSelectedCategory(category)}
                         className={`block w-full mb-2 text-left p-2 rounded-md hover:bg-neutral-600 duration-100 transition-all text-white ${selectedCategory === category ? 'bg-neutral-600' : ''}`}>
-                        {category}
+                        {commandCategories[category as keyof typeof commandCategories]} {/* Zeige den Kategorie-Namen an */}
                      </button>
                   </li>
                ))}
@@ -71,7 +72,7 @@ const Commands: React.FC = () => {
                   placeholder="Search commands..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 rounded-xl bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:shadow-2xl mx-2"
+                  className="w-[calc(100%-6px)] p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:shadow-2xl mx-2"
                />
             </div>
             <CommandList commands={filteredCommands} />
