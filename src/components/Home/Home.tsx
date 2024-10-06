@@ -71,28 +71,28 @@ const Home: React.FC = () => {
    return (
       <div className="flex flex-col items-center justify-center border border-neutral-600 h-full bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl p-4 sm:p-10">
          <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
-               <div className="flex items-center justify-center space-x-4">
-                  <Tooltip content='Click to change the Paint' position='top' >
+            <div className="flex items-center justify-center space-x-4">
+               <Tooltip content='Click to change the Paint' position='top' >
                   <img
                      src="https://potat.app/tatoExplode.gif"
                      alt="PotatBotat Logo"
-                     className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-600/60"
+                     className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-600/50"
                      onClick={() => setIsModalOpen(true)}
                   />
-                  </Tooltip>
-                  <h1 className="text-4xl sm:text-5xl font-bold"
-                     style={{
-                        backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
-                        filter: selectedPaint.shadow,
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        color: 'transparent',
-                        backgroundSize: '100% auto',
-                        display: 'inline-block',
-                     }}>
-                     PotatBotat
-                  </h1>
-               </div>
+               </Tooltip>
+               <h1 className="text-4xl sm:text-5xl font-bold"
+                  style={{
+                     backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
+                     filter: selectedPaint.shadow,
+                     WebkitBackgroundClip: 'text',
+                     backgroundClip: 'text',
+                     color: 'transparent',
+                     backgroundSize: '100% auto',
+                     display: 'inline-block',
+                  }}>
+                  PotatBotat
+               </h1>
+            </div>
 
             <p className="text-lg text-white text-center my-6">
                A versatile chatbot for emotes, entertainment, and utilities.

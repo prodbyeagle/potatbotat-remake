@@ -18,7 +18,7 @@ const LeaderboardCategory: React.FC<LeaderboardCategoryProps> = ({ categories, t
                <li key={category}>
                   <button
                      onClick={() => setType(category)}
-                     className={`block w-full mb-1 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-600 text-white ${type === category ? 'bg-neutral-600' : ''}`}>
+                     className={`block w-full mb-1 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-600/50 text-white ${type === category ? 'bg-neutral-600' : ''}`}>
                      {category.charAt(0).toUpperCase() + category.slice(1)}
                   </button>
                </li>
