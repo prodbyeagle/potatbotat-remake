@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Tooltip from '../Tooltip';
 
 const Redirect: React.FC = () => {
    const [inputUrl, setInputUrl] = useState<string>('');
@@ -44,28 +45,27 @@ const Redirect: React.FC = () => {
    return (
       <div className="flex flex-col items-center justify-center border border-neutral-600 h-full bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl p-4 sm:p-10">
          <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
-            <img
-               src="https://cdn.7tv.app/emote/63cec0c12ba67946677a463e/4x.webp"
-               alt="Buh"
-               className="w-80 h-32 mb-4 hover:animate-pulse"
-               title='Buh!'
-            />
-            <p className="text-lg text-white text-center mb-6">
-               Shorten your URL using the PotatBotat URL Shortener!
-            </p>
+
+            <Tooltip position='top' content="Buh!">
+               <img
+                  src="https://cdn.7tv.app/emote/63cec0c12ba67946677a463e/4x.webp"
+                  alt="Buh"
+                  className="w-80 h-32 mb-4 rounded-xl cursor-help"
+               />
+            </Tooltip>
 
             <form onSubmit={handleSubmit} className="w-full flex flex-col items-center space-y-4">
                <input
                   type="text"
                   value={inputUrl}
                   onChange={handleInputChange}
-                  placeholder="Enter URL to shorten"
+                  placeholder="Enter URL to shorten..."
                   className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 mx-2"
                   required
                />
                <button
                   type="submit"
-                  className="bg-neutral-600/50 hover:bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 text-white font-bold py-2 px-4 rounded-xl hover:rounded-xl transition-all"
+                  className="bg-neutral-600/50 hover:bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 text-white font-bold py-2 px-4 rounded-xl hover:rounded-lg transition-all"
                   disabled={loading}
                >
                   {loading ? 'Shortening...' : 'Shorten URL'}
@@ -82,10 +82,6 @@ const Redirect: React.FC = () => {
                   </a>
                </div>
             )}
-
-            <p className="text-xl text-yellow-400 text-center mt-6">
-               ⚠️ This service is currently in development. Expect some bugs.
-            </p>
          </div>
       </div>
    );
