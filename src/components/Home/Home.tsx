@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PartnerCard from './PartnerCard';
 import PaintSelector from './PaintSelector';
+import Tooltip from '../Tooltip';
 import { Partner } from '../../types/Home';
 import { Paint } from '../../types/Paint';
 import Stats from '../Stats';
@@ -70,36 +71,31 @@ const Home: React.FC = () => {
    return (
       <div className="flex flex-col items-center justify-center border border-neutral-600 h-full bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl p-4 sm:p-10">
          <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
-            <div className="flex items-center justify-center space-x-4">
-               <img
-                  src="https://potat.app/tatoExplode.gif"
-                  alt="PotatBotat Logo"
-                  className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-600/60"
-                  onClick={() => setIsModalOpen(true)}
-                  title='Click to Change the Paint.'
-               />
-               <h1 className="text-4xl sm:text-5xl font-bold"
-                  style={{
-                     backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
-                     filter: selectedPaint.shadow,
-                     WebkitBackgroundClip: 'text',
-                     backgroundClip: 'text',
-                     color: 'transparent',
-                     backgroundSize: '100% auto',
-                     display: 'inline-block',
-                  }}>
-                  PotatBotat
-               </h1>
-            </div>
+               <div className="flex items-center justify-center space-x-4">
+                  <Tooltip content='Click to change the Paint' position='top' >
+                  <img
+                     src="https://potat.app/tatoExplode.gif"
+                     alt="PotatBotat Logo"
+                     className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-600/60"
+                     onClick={() => setIsModalOpen(true)}
+                  />
+                  </Tooltip>
+                  <h1 className="text-4xl sm:text-5xl font-bold"
+                     style={{
+                        backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
+                        filter: selectedPaint.shadow,
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                        backgroundSize: '100% auto',
+                        display: 'inline-block',
+                     }}>
+                     PotatBotat
+                  </h1>
+               </div>
 
             <p className="text-lg text-white text-center my-6">
                A versatile chatbot for emotes, entertainment, and utilities.
-            </p>
-            <p className="text-xl text-yellow-400 text-center">
-               ⚠️ This website is currently in development. Expect some bugs.
-            </p>
-            <p className="text-sm text-white/60 text-center">
-               Tip: Click the logo next to "PotatBotat" to change the paint theme.
             </p>
 
             <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2>

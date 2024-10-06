@@ -39,7 +39,7 @@ const Leaderboard: React.FC = () => {
    const categories: LeaderboardType[] = ['potatoes', 'trivia', 'scramble', 'paints', 'badges', 'emoteschannel', 'emotesuser'];
 
    return (
-      <div className="flex flex-col lg:flex-row lg:h-screen bg-neutral-700/40 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
+      <div className="flex flex-col lg:flex-row lg:h-screen border border-neutral-600 bg-neutral-700/40 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
          {/* Sidebar: LeaderboardCategory */}
          <LeaderboardCategory categories={categories} type={type} setType={setType} />
 
