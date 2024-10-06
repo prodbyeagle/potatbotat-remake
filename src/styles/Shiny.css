@@ -1,0 +1,31 @@
+.always-shiny {
+   position: relative;
+   overflow: hidden;
+   transition: all 2s ease;
+}
+
+.always-shiny::before {
+   content: "";
+   position: absolute;
+   top: -50%;
+   left: -150%;
+   width: 200%;
+   height: 200%;
+   background: radial-gradient(circle,
+         rgba(255, 255, 255, 0.3) 0%,
+         rgba(255, 255, 255, 0.062) 80%);
+   transform: rotate(-30deg);
+   opacity: 0.3;
+   transition: all 2s ease-out;
+   animation: shiny 2s cubic-bezier(0.215, 0.61, 0.355, 1) 400ms infinite;
+}
+
+@keyframes shiny {
+   0% {
+      transform: translateX(-120%) rotate(-30deg);
+   }
+
+   100% {
+      transform: translateX(130%) rotate(-30deg);
+   }
+}
