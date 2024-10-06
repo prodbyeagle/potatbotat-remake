@@ -1,6 +1,5 @@
-// Modal.tsx
-
 import React from 'react';
+import '../styles/Modal.css'; // Stelle sicher, dass die CSS-Datei importiert wird
 
 interface ModalProps {
    isOpen: boolean;
@@ -12,9 +11,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
    if (!isOpen) return null;
 
    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-800/60 backdrop-blur-sm rounded-xl">
-         <div className="bg-neutral-800/50 backdrop-blur-sm border border-neutral-600 rounded-xl p-6 shadow-2xl">
-            {children}
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
+         <div className="modal-bg">
+            <div className="modal-content animate">
+               {children}
+               <button
+                  onClick={onClose}
+                  aria-label="Close modal"
+                  className="mt-6 w-fit bg-red-600 text-white py-2 px-4 rounded-xl transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+               >
+                  Close Modal
+               </button>
+            </div>
          </div>
       </div>
    );
