@@ -1,6 +1,8 @@
-// src/hooks/useAuth.ts
 import { useState, useEffect } from 'react';
 
+/**
+ * Represents the Twitch user data.
+ */
 interface TwitchUser {
    chatColor: string | null;
    userPaint: any | null;
@@ -10,6 +12,9 @@ interface TwitchUser {
    name: string | null;
 }
 
+/**
+ * Custom hook to manage authentication state and Twitch user data.
+ */
 const useAuth = () => {
    const [authToken, setAuthToken] = useState<string | null>(localStorage.getItem('authorization'));
    const [userState, setUserState] = useState<any | null>(localStorage.getItem('userState'));
@@ -18,17 +23,15 @@ const useAuth = () => {
 
    useEffect(() => {
       if (authToken) {
-         assignUser(); // Lade den Benutzer, wenn ein Token vorhanden ist
+         assignUser();
       }
 
       const handleMessage = (event: MessageEvent) => {
-         // Stelle sicher, dass der Message-Event vom richtigen Origin kommt
          if (event.origin !== 'https://api.potat.app') return;
 
          const { token, user } = event.data;
 
          if (token) {
-            // Speichere den Token und Benutzerstatus lokal
             localStorage.setItem('authorization', token);
             localStorage.setItem('userState', JSON.stringify(user));
             setAuthToken(token);
@@ -44,7 +47,6 @@ const useAuth = () => {
    }, [authToken]);
 
    const signIn = () => {
-      console.log("signin called")
       window.open(
          'https://api.potat.app/login',
          '_blank',
