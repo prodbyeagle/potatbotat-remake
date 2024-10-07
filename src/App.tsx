@@ -9,8 +9,9 @@ import Leaderboard from './components/Leaderboard/Leaderboard';
 import NotFound from './components/NotFound';
 import './index.css';
 import Redirect from './components/Utils/Redirect';
-import ApiDocs from './components/Utils/ApiDocs';
+import ApiDocs from './components/Utils/Docs/Docs';
 import Footer from './components/Footer';
+import User from './components/User/User'
 
 const App: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const App: React.FC = () => {
             <Route path="*" element={<NotFound />} />
             <Route path="/redirect" element={<Redirect />} />
             <Route path="/api/docs" element={<ApiDocs />} />
+            <Route path="/u/:username" element={<User />} />
           </Routes>
           <Footer />
         </div>
