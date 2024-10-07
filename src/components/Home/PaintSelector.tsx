@@ -27,16 +27,6 @@ const paints = [
       name: "Whisper"
    },
    {
-      url: "https://cdn.7tv.app/emote/66c59abafefca9b2cbfa1ca5/4x.webp",
-      shadow: "drop-shadow(rgb(238, 0, 255) 0px 0px 4px)",
-      name: "Nammerino"
-   },
-   {
-      url: "https://i.gifer.com/origin/ac/ac2ef163f44f7a3ffb0ab3a99ba4b98c_w200.gif",
-      shadow: "drop-shadow(rgb(242, 0, 6) 0px 0px 1px) drop-shadow(rgb(255, 36, 250) 0px 0px 1px) drop-shadow(rgb(4, 30, 255) 0px 0px 1px) drop-shadow(rgb(6, 193, 255) 0px 0px 1px) drop-shadow(rgb(29, 255, 23) 0px 0px 1px) drop-shadow(rgb(163, 210, 0) 0px 0px 1px) drop-shadow(rgb(255, 145, 21) 0px 0px 1px) drop-shadow(rgb(255, 32, 32) 0px 0px 1px)",
-      name: "Brainrot!"
-   },
-   {
       gradient: "radial-gradient(circle, rgb(255, 148, 148) 12%, rgb(229, 36, 75) 27%, rgb(255, 163, 163) 53%, rgb(243, 18, 74) 81%, rgb(225, 14, 14) 100%)",
       shadow: "drop-shadow(rgb(255, 0, 30) 0px 0px 0.1px)",
       name: "Erm."
@@ -72,11 +62,6 @@ const paints = [
       name: "Tie-Dye"
    },
    {
-      url: "https://gachi.gay/WFmBZ",
-      shadow: "drop-shadow(rgb(74, 165, 248) 0px 0px 0.5px)",
-      name: "Blizzard"
-   },
-   {
       url: "https://cdn.7tv.app/emote/66f3e4a11ab6daa41ce1e880/4x.webp",
       shadow: "drop-shadow(rgb(255, 174, 237) 0px 0px 0.1px) drop-shadow(rgb(5, 111, 138) 1px 1px 0.1px)",
       name: "What!"
@@ -90,6 +75,11 @@ const paints = [
       gradient: "linear-gradient(90deg, rgb(241, 201, 227) 0%, rgb(241, 201, 227) 20%, rgb(241, 172, 217) 20%, rgb(241, 172, 217) 40%, rgb(242, 143, 207) 40%, rgb(242, 143, 207) 60%, rgb(242, 115, 196) 60%, rgb(241, 115, 195) 80%, rgb(242, 86, 185) 80%, rgb(242, 86, 185) 100%)",
       shadow: "drop-shadow(rgb(242, 86, 185) 0px 0px 0.5px) drop-shadow(rgb(242, 86, 185) 0px 0px 5px)",
       name: "Life in Plastic"
+   },
+   {
+      url: "https://cdn.7tv.app/emote/66c5455c981479cde1c36660/4x.webp",
+      shadow: "drop-shadow(rgb(236, 37, 80) 0px 0px 0.1px) drop-shadow(rgb(0, 0, 0) 1px 1px 0.1px)",
+      name: "Webros"
    }
 ];
 
@@ -97,17 +87,16 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <h2 className="text-3xl font-bold text-center text-white mb-6">Choose a Paint</h2>
-         <div className="transition duration-100 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 p-2">
+         <div className="transition duration-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-4 p-2">
             {paints.map((paint, index) => (
                <div
                   key={index}
-                  className={`relative cursor-pointer rounded-xl transition-all duration-200 hover:shadow-none hover:scale-105 bg-neutral-800 overflow-hidden shadow-lg ${paint.shadow ? 'shadow-lg' : ''}`}
+                  className={`relative cursor-pointer rounded-xl transition-all duration-200 hover:scale-105 bg-neutral-800 overflow-hidden ${paint.shadow ? 'shadow-lg' : ''}`}
                   onClick={() => onSelect(paint)}
                   title={paint.name}
                   style={{
                      backgroundImage: paint.gradient ? paint.gradient : undefined,
                      height: '150px',
-                     filter: paint.shadow ? paint.shadow : undefined,
                   }}
                >
                   {paint.url && (
@@ -115,9 +104,10 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
                         src={paint.url}
                         alt={paint.name}
                         className="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-300"
+                        style={{ filter: paint.shadow ? paint.shadow : undefined }} // Filter auf das Bild anwenden
                      />
                   )}
-                  <div className="absolute bottom-0 left-0 right-0 bg-neutral-600/60 backdrop-blur-xl text-white text-sm text-center p-2 truncate z-10">
+                  <div className="absolute bottom-0 left-0 right-0 bg-neutral-600/60 backdrop-blur-lg text-white text-sm text-center p-2 truncate z-10">
                      {paint.name}
                   </div>
                </div>
@@ -126,5 +116,6 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
       </Modal>
    );
 };
+
 
 export default PaintSelector;
