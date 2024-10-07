@@ -65,8 +65,8 @@ const User: React.FC = () => {
    const potatoes = userData.potatoes || { count: 0, rank: 0 };
 
    return (
-      <div className="bg-neutral-700/40 p-6 rounded-xl border border-neutral-600 backdrop-blur-lg text-white">
-         <div className="flex flex-col sm:flex-row items-center mb-4">
+      <div className="bg-neutral-700/40 p-2 rounded-xl border border-neutral-600 backdrop-blur-lg text-white">
+         <div className="flex flex-col sm:flex-row rounded-lg items-center mb-2 p-2 border border-neutral-600 bg-neutral-800/40 backdrop-blur-lg">
             {userData?.user.connections.map((connection) => {
                if (connection.platform === 'TWITCH' && connection.pfp) {
                   return (
@@ -74,16 +74,16 @@ const User: React.FC = () => {
                         key={connection.id}
                         src={connection.pfp}
                         alt={`${userData.user.display}'s profile`}
-                        className="w-14 h-14 rounded-full mr-2" // Profilbild mit Abstand
+                        className="w-14 h-14 rounded-full mr-2"
                      />
                   );
                }
-               return null; // Wenn kein TWITCH-Bild vorhanden ist
+               return null;
             })}
             <h1 className="text-4xl font-bold text-center sm:text-left mt-2 sm:mt-0">@{userData.user.display}</h1>
          </div>
 
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div className="bg-neutral-800/50 p-4 rounded-lg shadow-lg border border-neutral-600">
                <p>Level: <span className="font-semibold">{userData.user.level}</span></p>
                <p>First Seen: <span className="font-semibold">{new Date(userData.user.first_seen).toLocaleDateString()}</span></p>
@@ -106,7 +106,7 @@ const User: React.FC = () => {
             </div>
          </div>
 
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
             <div className="bg-neutral-800/50 p-4 rounded-lg shadow-lg border border-neutral-600">
                <h2 className="text-2xl font-semibold mb-2">Potato Stats:</h2>
                <p>Total Potatoes: <span className="font-semibold">{potatoes.count}</span></p>
