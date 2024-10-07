@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PartnerCard from './PartnerCard';
 import PaintSelector from './PaintSelector';
 import Tooltip from '../Tooltip';
@@ -17,6 +18,8 @@ const Home: React.FC = () => {
       shadow: 'drop-shadow(#ff007b 0px 0px 0.1px) drop-shadow(#ff007b 0px 0px 4px)',
    });
    const [loading, setLoading] = useState<boolean>(true);
+   const [searchTerm, setSearchTerm] = useState<string>('');
+   const navigate = useNavigate();
 
    useEffect(() => {
       const savedPaint = localStorage.getItem('selectedPaint');
@@ -68,15 +71,21 @@ const Home: React.FC = () => {
       setIsModalOpen(false);
    };
 
+   const handleSearch = () => {
+      if (searchTerm.trim()) {
+         navigate(`/u/${searchTerm.trim()}`);
+      }
+   };
+
    return (
       <div className="flex flex-col items-center justify-center border border-neutral-600 h-full bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl p-4 sm:p-10">
          <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
             <div className="flex items-center justify-center space-x-4">
-               <Tooltip content='Click to change the Paint' position='top' >
+               <Tooltip content='Click to change the Paint' position='top'>
                   <img
                      src="https://potat.app/tatoExplode.gif"
                      alt="PotatBotat Logo"
-                     className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-600/50"
+                     className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-700/50"
                      onClick={() => setIsModalOpen(true)}
                   />
                </Tooltip>
@@ -90,13 +99,35 @@ const Home: React.FC = () => {
                      backgroundSize: '100% auto',
                      display: 'inline-block',
                   }}>
-                  PotatBotat
+                  INDEV | PotatBotat
                </h1>
             </div>
 
             <p className="text-lg text-white text-center my-6">
                A versatile chatbot for emotes, entertainment, and utilities.
             </p>
+            
+            <div className="flex space-x-2">
+               <input
+                  type="text"
+                  placeholder="RyanPotat"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => {
+                     if (e.key === 'Enter') {
+                        handleSearch();
+                     }
+                  }}
+                  className="p-2 rounded-lg bg-neutral-700 border h-10 border-neutral-600 placeholder-gray-400 text-white mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+               />
+               <button
+                  onClick={handleSearch}
+                  className="bg-neutral-800/50 hover:bg-neutral-700/50 backdrop-blur-xl h-10 border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg hover:rounded-xl transition-all"
+               >
+                  Go!
+               </button>
+            </div>
+
 
             <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2>
             {loading ? (
