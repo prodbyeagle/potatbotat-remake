@@ -4,6 +4,7 @@ import { StatsData } from '../types/Stats';
 const Stats: React.FC = () => {
    const [stats, setStats] = useState<StatsData | null>(null);
    const [loading, setLoading] = useState(true);
+   const [socket, setSocket] = useState<WebSocket | null>(null);
 
    useEffect(() => {
       const fetchStats = async () => {
@@ -21,44 +22,46 @@ const Stats: React.FC = () => {
          }
       };
 
-      const socket = new WebSocket('wss://stats.potat.app');
+      const connectWebSocket = () => {
+         const newSocket = new WebSocket('wss://stats.potat.app');
 
-      socket.onopen = () => {
-      };
+         newSocket.onmessage = (event) => {
 
-      socket.onmessage = async (event) => {
-
-         try {
-            const newStats = JSON.parse(event.data);
-            if (newStats && newStats.data) {
-               const update = newStats.data;
-               const topic = newStats.topic;
-
-               await processStatsUpdate(topic, update);
-            } else {
-               console.warn('Unexpected data format:', newStats);
+            try {
+               const newStats = JSON.parse(event.data);
+               if (newStats && newStats.data) {
+                  const update = newStats.data;
+                  const topic = newStats.topic;
+                  processStatsUpdate(topic, update);
+               } else {
+                  console.warn('Unexpected data format:', newStats);
+               }
+            } catch (error) {
+               console.warn('Non-JSON message received:', event.data);
             }
-         } catch (error) {
-            console.error('Error parsing WebSocket data:', error);
-         }
-      };
+         };
 
-      socket.onerror = (error) => {
-         console.error('WebSocket error:', error);
-      };
+         newSocket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+         };
 
-      socket.onclose = () => {
-         console.log('WebSocket closed');
+         newSocket.onclose = () => {
+            setTimeout(connectWebSocket, 3000);
+         };
+
+         setSocket(newSocket);
       };
 
       fetchStats();
+      connectWebSocket();
 
       return () => {
-         socket.close();
+         socket?.close();
       };
+      //eslint-disable-next-line
    }, []);
 
-   const processStatsUpdate = async (topic: string, update: any) => {
+   const processStatsUpdate = (topic: string, update: any) => {
       setStats(prevStats => {
          const currentStats = prevStats ?? {
             misc: { commandsUsed: 0, emotesAdded: 0 },
@@ -104,7 +107,6 @@ const Stats: React.FC = () => {
          return { ...currentStats };
       });
    };
-
 
    if (loading) {
       return <p className="text-gray-300">Loading stats...</p>;
