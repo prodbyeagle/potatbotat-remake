@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
                href="https://www.twitch.tv/ryanpotat"
                target="_blank"
                rel="noopener noreferrer"
-               className="transition-all duration-300 transform bronze-text hover:font-black"
+               className="transition-all duration-300 transform gold-text hover:font-black"
             >
                PotatBotat
             </a>
