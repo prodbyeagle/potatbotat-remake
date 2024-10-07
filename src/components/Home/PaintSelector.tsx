@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from '../Modal';
 import { PaintSelectorProps } from '../../types/Paint';
 
@@ -83,7 +83,12 @@ const paints = [
    }
 ];
 
+
+const isMobile = window.innerWidth <= 768;
+
 const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect }) => {
+   const [hoveredPaintIndex, setHoveredPaintIndex] = useState<number | null>(null);
+
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <h2 className="text-3xl font-bold text-center text-white mb-6">Choose a Paint</h2>
@@ -93,6 +98,8 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
                   key={index}
                   className={`relative cursor-pointer rounded-xl transition-all duration-200 hover:scale-105 bg-neutral-800 overflow-hidden ${paint.shadow ? 'shadow-lg' : ''}`}
                   onClick={() => onSelect(paint)}
+                  onMouseEnter={() => setHoveredPaintIndex(index)}
+                  onMouseLeave={() => setHoveredPaintIndex(null)}
                   title={paint.name}
                   style={{
                      backgroundImage: paint.gradient ? paint.gradient : undefined,
@@ -104,7 +111,11 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
                         src={paint.url}
                         alt={paint.name}
                         className="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-300"
-                        style={{ filter: paint.shadow ? paint.shadow : undefined }} // Filter auf das Bild anwenden
+                        style={{
+                           filter: isMobile ? undefined : paint.shadow ? paint.shadow : undefined,
+                           animationPlayState: hoveredPaintIndex === index ? 'running' : 'paused',
+                        }}
+                        loading='lazy'
                      />
                   )}
                   <div className="absolute bottom-0 left-0 right-0 bg-neutral-600/60 backdrop-blur-lg text-white text-sm text-center p-2 truncate z-10">
@@ -116,6 +127,5 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ isOpen, onClose, onSelect
       </Modal>
    );
 };
-
 
 export default PaintSelector;

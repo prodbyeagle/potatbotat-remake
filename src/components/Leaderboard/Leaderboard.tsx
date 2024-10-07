@@ -47,7 +47,7 @@ const Leaderboard: React.FC = () => {
                   placeholder="Search players..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 rounded-md bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-0 md:ml-2"
+                  className="w-full p-2 rounded-lg bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-0 md:ml-2"
                />
             </div>
 

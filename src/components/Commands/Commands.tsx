@@ -42,7 +42,7 @@ const Commands: React.FC = () => {
 
    return (
       <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
-         <aside className="w-full lg:w-1/6 bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 lg:h-auto mb-4 lg:mb-0">
+         <aside className="w-full lg:w-1/6 bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 lg:h-auto mb-2 lg:mb-0">
             <h2 className="text-lg font-bold text-white mb-2">Categories</h2>
             <ul>
                <li>
@@ -72,7 +72,7 @@ const Commands: React.FC = () => {
                   placeholder="Search commands..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-[calc(100%-6px)] p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:shadow-2xl mx-2"
+                  className="w-[calc(100%-6px)] p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:shadow-2xl ml-0 md:ml-2"
                />
             </div>
             <CommandList commands={filteredCommands} />

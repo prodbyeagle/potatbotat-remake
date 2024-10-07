@@ -10,7 +10,7 @@ interface CommandListProps {
 
 const CommandList: React.FC<CommandListProps> = ({ commands }) => {
    return (
-      <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 shadow-lg h-[calc(100vh-63px)] overflow-y-auto ml-3 md:ml-2">
+      <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 shadow-lg h-[calc(100vh-63px)] overflow-y-auto ml-0 md:ml-2">
          <h2 className="text-2xl font-bold text-white mb-4">Commands</h2>
          <ul className="space-y-4">
             {commands.length > 0 ? (

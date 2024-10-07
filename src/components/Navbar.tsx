@@ -1,29 +1,34 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Tooltip from './Tooltip';
-import useAuth from '../hooks/useAuth';
 
 const Navbar: React.FC = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
    const dropdownRef = useRef<HTMLUListElement | null>(null);
+   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
 
    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
    const closeDropdown = () => setDropdownOpen(false);
    const toggleMenu = () => setMenuOpen(!menuOpen);
    const closeMenu = () => setMenuOpen(false);
-   const { isAuthenticated, twitchUser, signIn, signOut } = useAuth();
 
    useEffect(() => {
+      const handleResize = () => {
+         setIsMobile(window.innerWidth < 768);
+      };
+
+      window.addEventListener('resize', handleResize);
+
       const handleClickOutside = (event: MouseEvent) => {
          const target = event.target as Node;
          const clickedElement = target as HTMLElement;
 
          const dropdownClicked = dropdownRef.current?.contains(clickedElement);
-         const hamburgerClicked = clickedElement.closest('.hamburger') !== null;
-         const menuClicked = document.querySelector('.absolute.top-16')?.contains(clickedElement);
+         const menuClicked = document.querySelector('.absolute.top-24')?.contains(clickedElement);
 
-         if (!dropdownClicked && !hamburgerClicked && !menuClicked) {
+         if (!dropdownClicked && !menuClicked) {
             closeDropdown();
             closeMenu();
          }
@@ -31,6 +36,7 @@ const Navbar: React.FC = () => {
 
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
+         window.removeEventListener('resize', handleResize);
          document.removeEventListener('mousedown', handleClickOutside);
       };
    }, []);
@@ -41,7 +47,7 @@ const Navbar: React.FC = () => {
             <img
                src="https://potat.app/tatoExplode.gif"
                alt="Home"
-               className="w-10 h-10 rounded-lg p-1 object-contain transition-all duration-100 hover:bg-neutral-700/50"
+               className="w-10 h-10 rounded-lg p-1 object-contain transition-all duration-100 hover:bg-neutral-600/50"
             />
          </NavLink>
 
@@ -49,7 +55,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-700/50'}`
                }
             >
                Home
@@ -57,7 +63,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/commands"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-700/50'}`
                }
             >
                Commands
@@ -65,7 +71,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/leaderboard"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-700/50'}`
                }
             >
                Leaderboard
@@ -73,7 +79,7 @@ const Navbar: React.FC = () => {
             <li className="relative flex items-center">
                <button
                   onClick={toggleDropdown}
-                  className={`py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-700/50 text-center`}
+                  className={`py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 text-center`}
                >
                   Utils
                </button>
@@ -87,7 +93,7 @@ const Navbar: React.FC = () => {
                            to="/redirect"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50  ${isActive ? 'bg-neutral-700 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50  ${isActive ? 'bg-neutral-700 text-yellow-400' : 'text-white'}`
                            }
                         >
                            URL Shortener
@@ -98,10 +104,20 @@ const Navbar: React.FC = () => {
                            to="/api/docs"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            API Docs
+                        </NavLink>
+                     </li>
+                     <li key="connections">
+                        <NavLink
+                           to="#"
+                           className={({ isActive }) =>
+                              `block py-2 px-4 rounded-md transition duration-100 text-gray-500`
+                           }
+                        >
+                           Connections
                         </NavLink>
                      </li>
                   </ul>
@@ -110,11 +126,15 @@ const Navbar: React.FC = () => {
          </div>
 
          <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="hamburger p-2 focus:outline-none">
-               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-               </svg>
-            </button>
+            <Tooltip content='Hi' position='left'>
+               <button onClick={toggleMenu} className="flex items-center p-2 rounded-lg cursor-pointer hover:bg-neutral-600/50 transition-all">
+                  <img
+                     src="https://avatars.githubusercontent.com/u/124641014?s=96&v=4"
+                     alt="User Avatar"
+                     className="w-8 h-8 rounded-full cursor-pointer hover:bg-neutral-600/50 transition-all"
+                  />
+               </button>
+            </Tooltip>
          </div>
 
          {menuOpen && (
@@ -168,31 +188,42 @@ const Navbar: React.FC = () => {
             </div>
          )}
 
-         <Tooltip position="left" content="This is obv. not real">
-            <div className="flex items-center space-x-4 transition-all duration-100 rounded-lg hover:bg-neutral-700/50 backdrop-blur-lg p-1">
-               {isAuthenticated ? (
-                  <div className="flex items-center space-x-2">
-                     {twitchUser?.twitch_pfp && (
+         {!isMobile && (
+            <Tooltip position="left" content="Demo Tooltip">
+               <div className="flex items-center space-x-4 transition-all duration-100 rounded-lg hover:bg-neutral-700/50 backdrop-blur-lg p-1">
+                  {isLoggedIn ? (
+                     <div className="flex items-center space-x-2">
                         <img
-                           src={twitchUser.stv_pfp ? twitchUser.stv_pfp : twitchUser.twitch_pfp}
+                           src="https://avatars.githubusercontent.com/u/124641014?s=96&v=4"
                            alt="User Avatar"
                            className="w-8 h-8 rounded-full"
                         />
-                     )}
-                     <span className="text-sm font-semibold">
-                        @{twitchUser?.name}
-                     </span>
-                     <button onClick={signOut} className="px-2 py-2 text-sm rounded-md bg-neutral-700 text-white hover:bg-neutral-700/50 transition duration-100">
-                        Sign Out
+                        <span
+                           style={{
+                              backgroundImage: "radial-gradient(circle, rgb(238, 255, 0) 0%, rgb(166, 255, 0) 50%, rgb(93, 195, 9) 100%)",
+                              filter: "drop-shadow(rgb(189, 225, 9) 0px 0px 4px)",
+                              WebkitBackgroundClip: 'text',
+                              backgroundClip: 'text',
+                              color: 'transparent',
+                              backgroundSize: '100% auto',
+                              display: 'inline-block',
+                           }}
+                           className="text-sm font-semibold"
+                        >
+                           @prodbyeagle
+                        </span>
+                     </div>
+                  ) : (
+                     <button
+                        onClick={() => setIsLoggedIn(true)}
+                        className="px-2 py-2 text-sm rounded-md bg-neutral-700 text-white hover:bg-neutral-700/50 transition duration-100"
+                     >
+                        Sign In
                      </button>
-                  </div>
-               ) : (
-                  <button onClick={signIn} className="px-2 py-2 text-sm rounded-md bg-neutral-700 text-white hover:bg-neutral-700/50 transition duration-100">
-                     Sign In
-                  </button>
-               )}
-            </div>
-         </Tooltip>
+                  )}
+               </div>
+            </Tooltip>
+         )}
       </nav>
    );
 };

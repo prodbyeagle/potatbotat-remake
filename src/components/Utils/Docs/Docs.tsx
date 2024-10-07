@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import yaml from 'yaml';
 import { ApiDoc } from '../../../types/Docs';
 import DocsLoader from './DocsLoader';
+import Tooltip from '../../Tooltip';
 
 const methodColors: Record<string, string> = {
    get: 'text-green-400',
@@ -25,6 +26,7 @@ const ApiDocs: React.FC = () => {
    const [apiData, setApiData] = useState<ApiDoc | null>(null);
    const [loading, setLoading] = useState<boolean>(true);
    const [error, setError] = useState<string | null>(null);
+   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
    useEffect(() => {
       const fetchSwaggerData = async () => {
@@ -46,6 +48,8 @@ const ApiDocs: React.FC = () => {
    const copyToClipboard = async (fullUrl: string) => {
       try {
          await navigator.clipboard.writeText(fullUrl);
+         setCopiedUrl(fullUrl);
+         setTimeout(() => setCopiedUrl(null), 2000);
       } catch (err) {
          console.error('Failed to copy!', err);
       }
@@ -73,12 +77,19 @@ const ApiDocs: React.FC = () => {
             <div className="w-full">
                {apiData && Object.keys(apiData.paths).map((path, index) => (
                   <div key={index} className="mb-6 p-4 bg-neutral-700 rounded-xl">
-                     <h3
-                        className="text-lg sm:text-xl text-yellow-300 hover:border-green-400 border border-neutral-700 rounded-md p-1 font-semibold cursor-pointer duration-100 transition"
-                        onClick={() => copyToClipboard(`${serverUrl}${path}`)} // Kopiere den vollständigen Link
-                     >
-                        <span className="text-neutral-500">{serverUrl}</span>{path}
-                     </h3>
+                     <Tooltip position='top' content='Click to copy URL!'>
+                        <h3
+                           className="text-lg sm:text-xl text-yellow-300 hover:border-green-400 border border-neutral-700 rounded-md p-1 font-semibold cursor-pointer duration-100 transition"
+                           onClick={() => copyToClipboard(`${serverUrl}${path}`)}
+                        >
+                           <span className="text-neutral-500">{serverUrl}</span>{path}
+                           {copiedUrl === `${serverUrl}${path}` && (
+                              <div className="mt-2 text-green-500">
+                                 URL copied!
+                              </div>
+                           )}
+                        </h3>
+                     </Tooltip>
 
                      {Object.keys(apiData.paths[path]).map((method, idx) => (
                         <div key={idx} className="mt-2 border-t border-neutral-600 pt-2">
