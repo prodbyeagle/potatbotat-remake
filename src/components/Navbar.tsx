@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Tooltip from './Tooltip';
+import useAuth from '../hooks/useAuth';
 
 const Navbar: React.FC = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const [menuOpen, setMenuOpen] = useState<boolean>(false);
-   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
    const dropdownRef = useRef<HTMLUListElement | null>(null);
 
    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
    const closeDropdown = () => setDropdownOpen(false);
    const toggleMenu = () => setMenuOpen(!menuOpen);
    const closeMenu = () => setMenuOpen(false);
+   const { isAuthenticated, twitchUser, signIn, signOut } = useAuth();
 
    useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -40,7 +41,7 @@ const Navbar: React.FC = () => {
             <img
                src="https://potat.app/tatoExplode.gif"
                alt="Home"
-               className="w-10 h-10 rounded-lg p-1 object-contain transition-all duration-100 hover:bg-neutral-600/50"
+               className="w-10 h-10 rounded-lg p-1 object-contain transition-all duration-100 hover:bg-neutral-700/50"
             />
          </NavLink>
 
@@ -48,7 +49,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-600/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                }
             >
                Home
@@ -56,7 +57,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/commands"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-600/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                }
             >
                Commands
@@ -64,7 +65,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/leaderboard"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-600/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                }
             >
                Leaderboard
@@ -72,7 +73,7 @@ const Navbar: React.FC = () => {
             <li className="relative flex items-center">
                <button
                   onClick={toggleDropdown}
-                  className={`py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 text-center`}
+                  className={`py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-700/50 text-center`}
                >
                   Utils
                </button>
@@ -86,7 +87,7 @@ const Navbar: React.FC = () => {
                            to="/redirect"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50  ${isActive ? 'bg-neutral-700 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50  ${isActive ? 'bg-neutral-700 text-yellow-400' : 'text-white'}`
                            }
                         >
                            URL Shortener
@@ -97,7 +98,7 @@ const Navbar: React.FC = () => {
                            to="/api/docs"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-600/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            API Docs
@@ -124,7 +125,7 @@ const Navbar: React.FC = () => {
                         to="/commands"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-600/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         Commands
@@ -135,7 +136,7 @@ const Navbar: React.FC = () => {
                         to="/leaderboard"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-600/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         Leaderboard
@@ -146,7 +147,7 @@ const Navbar: React.FC = () => {
                         to="/redirect"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-600/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         URL Shortener
@@ -157,7 +158,7 @@ const Navbar: React.FC = () => {
                         to="/api/docs"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-600/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         API Docs
@@ -168,34 +169,25 @@ const Navbar: React.FC = () => {
          )}
 
          <Tooltip position="left" content="This is obv. not real">
-            <div className="flex items-center space-x-4 transition-all duration-100 rounded-lg hover:bg-neutral-600/50 backdrop-blur-lg p-1">
-               {isLoggedIn ? (
+            <div className="flex items-center space-x-4 transition-all duration-100 rounded-lg hover:bg-neutral-700/50 backdrop-blur-lg p-1">
+               {isAuthenticated ? (
                   <div className="flex items-center space-x-2">
-                     <img
-                        src="https://avatars.githubusercontent.com/u/124641014?s=96&v=4"
-                        alt="User Avatar"
-                        className="w-8 h-8 rounded-full"
-                     />
-                     <span
-                        style={{
-                           backgroundImage: "radial-gradient(circle, rgb(238, 255, 0) 0%, rgb(166, 255, 0) 50%, rgb(93, 195, 9) 100%)",
-                           filter: "drop-shadow(rgb(189, 225, 9) 0px 0px 4px)",
-                           WebkitBackgroundClip: 'text',
-                           backgroundClip: 'text',
-                           color: 'transparent',
-                           backgroundSize: '100% auto',
-                           display: 'inline-block',
-                        }}
-                        className="text-sm font-semibold"
-                     >
-                        @prodbyeagle
+                     {twitchUser?.twitch_pfp && (
+                        <img
+                           src={twitchUser.stv_pfp ? twitchUser.stv_pfp : twitchUser.twitch_pfp}
+                           alt="User Avatar"
+                           className="w-8 h-8 rounded-full"
+                        />
+                     )}
+                     <span className="text-sm font-semibold">
+                        @{twitchUser?.name}
                      </span>
+                     <button onClick={signOut} className="px-2 py-2 text-sm rounded-md bg-neutral-700 text-white hover:bg-neutral-700/50 transition duration-100">
+                        Sign Out
+                     </button>
                   </div>
                ) : (
-                  <button
-                     onClick={() => setIsLoggedIn(true)}
-                     className="px-4 py-2 rounded-md bg-neutral-700 text-white hover:bg-neutral-600/50 transition duration-100"
-                  >
+                  <button onClick={signIn} className="px-2 py-2 text-sm rounded-md bg-neutral-700 text-white hover:bg-neutral-700/50 transition duration-100">
                      Sign In
                   </button>
                )}
