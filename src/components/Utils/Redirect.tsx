@@ -65,7 +65,7 @@ const Redirect: React.FC = () => {
                />
                <button
                   type="submit"
-                  className="bg-neutral-600/50 hover:bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 text-white font-bold py-2 px-4 rounded-xl hover:rounded-lg transition-all"
+                  className="bg-neutral-800/50 hover:bg-neutral-700/50 backdrop-blur-xl border border-neutral-600 text-white font-bold py-2 px-4 rounded-xl hover:rounded-lg transition-all"
                   disabled={loading}
                >
                   {loading ? 'Shortening...' : 'Shorten URL'}
