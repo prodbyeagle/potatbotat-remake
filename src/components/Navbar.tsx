@@ -5,9 +5,10 @@ import Tooltip from './Tooltip';
 const Navbar: React.FC = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const [menuOpen, setMenuOpen] = useState<boolean>(false);
-   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
    const dropdownRef = useRef<HTMLUListElement | null>(null);
    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+   const [badgeImage, setBadgeImage] = useState<string | null>(null);
 
    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
    const closeDropdown = () => setDropdownOpen(false);
@@ -39,6 +40,27 @@ const Navbar: React.FC = () => {
          window.removeEventListener('resize', handleResize);
          document.removeEventListener('mousedown', handleClickOutside);
       };
+   }, []);
+
+   useEffect(() => {
+      const fetchBadge = async () => {
+         try {
+            const response = await fetch('https://chatterinohomies.com/api/badges/list');
+            const data = await response.json();
+
+            if (Array.isArray(data.badges)) {
+               const userBadge = data.badges.find((badge: { username: string }) => badge.username === 'prodbyeagle');
+               if (userBadge) {
+                  setBadgeImage(userBadge.image3);
+               }
+            } else {
+               console.error('Expected badges to be an array, but received:', data.badges);
+            }
+         } catch (error) {
+            console.error('Failed to fetch badge:', error);
+         }
+      };
+      fetchBadge();
    }, []);
 
    return (
@@ -110,11 +132,31 @@ const Navbar: React.FC = () => {
                            API Docs
                         </NavLink>
                      </li>
+                     <li key="haste">
+                        <NavLink
+                           to="https://haste.potat.app/"
+                           className={({ isActive }) =>
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                           }
+                        >
+                           Haste
+                        </NavLink>
+                     </li>
+                     <li key="emoteSearch">
+                        <NavLink
+                           to="/emotes/search"
+                           className={({ isActive }) =>
+                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                           }
+                        >
+                           Emote Search
+                        </NavLink>
+                     </li>
                      <li key="connections">
                         <NavLink
                            to="#"
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md transition duration-100 text-gray-500`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 cursor-default text-gray-500`
                            }
                         >
                            Connections
@@ -184,6 +226,36 @@ const Navbar: React.FC = () => {
                         API Docs
                      </NavLink>
                   </li>
+                  <li key="haste">
+                     <NavLink
+                        to="https://haste.potat.app/"
+                        className={({ isActive }) =>
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                        }
+                     >
+                        Haste
+                     </NavLink>
+                  </li>
+                  <li key="emoteSearch">
+                     <NavLink
+                        to="/emotes/search"
+                        className={({ isActive }) =>
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                        }
+                     >
+                        Emote Search
+                     </NavLink>
+                  </li>
+                  <li key="connections">
+                     <NavLink
+                        to="#"
+                        className={({ isActive }) =>
+                           `block py-2 px-4 rounded-md transition duration-100 cursor-default text-gray-500`
+                        }
+                     >
+                        Connections
+                     </NavLink>
+                  </li>
                </ul>
             </div>
          )}
@@ -212,6 +284,7 @@ const Navbar: React.FC = () => {
                         >
                            @prodbyeagle
                         </span>
+                        {badgeImage && <img src={badgeImage} alt="Badge" className="w-5 h-5" />}
                      </div>
                   ) : (
                      <button
