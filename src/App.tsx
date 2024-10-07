@@ -11,7 +11,8 @@ import './index.css';
 import Redirect from './components/Utils/Redirect';
 import ApiDocs from './components/Utils/Docs/Docs';
 import Footer from './components/Footer';
-import User from './components/User/User'
+import User from './components/User/User';
+import EmoteSearch from './components/Utils/EmoteSearch/EmoteSearch';
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
             <Route path="/redirect" element={<Redirect />} />
             <Route path="/api/docs" element={<ApiDocs />} />
             <Route path="/u/:username" element={<User />} />
+            <Route path="/emotes/search" element={<EmoteSearch />} />
           </Routes>
           <Footer />
         </div>
