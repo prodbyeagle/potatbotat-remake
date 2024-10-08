@@ -44,13 +44,13 @@ const Redirect: React.FC = () => {
 
    return (
       <div className="flex flex-col items-center justify-center border border-neutral-600 h-full bg-neutral-900/50 backdrop-blur-md relative overflow-hidden rounded-xl p-4 sm:p-10">
-         <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
+         <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-2 sm:p-10 my-10 shadow-lg relative z-auto flex flex-col items-center">
 
             <Tooltip position='top' content="buh">
                <img
                   src="https://cdn.7tv.app/emote/63cec0c12ba67946677a463e/4x.webp"
                   alt="Buh"
-                  className="w-80 h-32 mb-4 rounded-xl cursor-help"
+                  className="w-80 h-32 mb-4 rounded-md cursor-help"
                />
             </Tooltip>
 

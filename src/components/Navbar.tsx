@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 import { NavLink } from 'react-router-dom';
 import Tooltip from './Tooltip';
 
@@ -63,6 +64,12 @@ const Navbar: React.FC = () => {
       fetchBadge();
    }, []);
 
+   const utcTimestamp = "2023-12-23T01:20:10.645Z";
+   const getTimeDifference = (utcString: string) => {
+      const date = new Date(utcString);
+      return formatDistanceToNow(date, { addSuffix: true });
+   };
+
    return (
       <nav className="border border-neutral-600 bg-neutral-800/50 text-white text-md rounded-xl backdrop-blur-xl p-2 shadow-lg mb-4 flex items-center justify-between z-50 relative">
          <NavLink to="/" className="mr-4">
@@ -115,7 +122,7 @@ const Navbar: React.FC = () => {
                            to="/redirect"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50  ${isActive ? 'bg-neutral-700 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50  ${isActive ? 'bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            URL Shortener
@@ -126,7 +133,7 @@ const Navbar: React.FC = () => {
                            to="/api/docs"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            API Docs
@@ -136,7 +143,7 @@ const Navbar: React.FC = () => {
                         <NavLink
                            to="https://haste.potat.app/"
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            Haste
@@ -147,7 +154,7 @@ const Navbar: React.FC = () => {
                            to="/emotes/search"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            Emote Search
@@ -262,7 +269,7 @@ const Navbar: React.FC = () => {
          )}
 
          {!isMobile && (
-            <Tooltip position="left" content="Demo Tooltip">
+            <Tooltip position="left" content={`Joined: ${getTimeDifference(utcTimestamp)}`}>
                <div className="flex items-center space-x-4 transition-all duration-100 rounded-lg hover:bg-neutral-700/50 backdrop-blur-lg p-1">
                   {isLoggedIn ? (
                      <div className="flex items-center space-x-2">

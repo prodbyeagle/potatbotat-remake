@@ -37,7 +37,7 @@ const Leaderboard: React.FC = () => {
    );
 
    return (
-      <div className="flex flex-col lg:flex-row lg:h-screen border border-neutral-600 bg-neutral-700/40 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
+      <div className="flex flex-col lg:flex-row lg:h-screen border border-neutral-600 bg-neutral-800/50 p-2 backdrop-blur-lg rounded-xl text-white z-auto">
          <LeaderboardCategory type={type} setType={setType} />
 
          <div className="flex-1">

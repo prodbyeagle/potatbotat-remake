@@ -40,7 +40,7 @@ const LeaderboardEntry: React.FC<ExtendedLeaderboardEntryProps> = ({ entry, type
    };
 
    return (
-      <li className="p-4 bg-neutral-800/60 rounded-md shadow-md flex items-center space-x-4">
+      <li className="p-4 bg-neutral-800/50 backdrop-blur-xl rounded-md shadow-md flex items-center space-x-4 border border-neutral-600">
          <div className={`w-8 text-center font-bold ${getPlacementClass()}`}>
             #{placement}
          </div>
