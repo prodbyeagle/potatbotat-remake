@@ -6,7 +6,7 @@ import Tooltip from './Tooltip';
 const Navbar: React.FC = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const [menuOpen, setMenuOpen] = useState<boolean>(false);
-   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // user is already logged in can be disabled tho.
    const dropdownRef = useRef<HTMLUListElement | null>(null);
    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
    const [badgeImage, setBadgeImage] = useState<string | null>(null);
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
       fetchBadge();
    }, []);
 
-   const utcTimestamp = "2023-12-23T01:20:10.645Z";
+   const utcTimestamp = "2023-12-23T01:20:10.645Z"; // first seen timestamp from prodbyeagle
    const getTimeDifference = (utcString: string) => {
       const date = new Date(utcString);
       return formatDistanceToNow(date, { addSuffix: true });
