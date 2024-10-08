@@ -145,6 +145,7 @@ const Navbar: React.FC = () => {
                      <li key="emoteSearch">
                         <NavLink
                            to="/emotes/search"
+                           onClick={closeDropdown}
                            className={({ isActive }) =>
                               `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
