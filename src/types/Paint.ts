@@ -1,3 +1,5 @@
+//src/types/Paint.ts
+
 export interface Paint {
    url?: string;
    gradient?: string;
