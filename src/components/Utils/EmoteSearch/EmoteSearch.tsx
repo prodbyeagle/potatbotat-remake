@@ -21,7 +21,7 @@ const EmoteSearch: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const url = `https://api.potat.app/twitch/emotes/search?${searchType}=${searchTerm}&case=${caseSensitive}&first=100`;
+      const url = `https://api.potat.app/twitch/emotes/search?${searchType}=${searchTerm}&case=${caseSensitive}&first=200`;
 
       try {
          const response = await fetch(url);
@@ -130,7 +130,7 @@ const EmoteSearch: React.FC = () => {
                      className="flex flex-col items-center bg-neutral-800/50 p-4 rounded-lg border border-neutral-600"
                   >
                      <img src={emote.url} alt={emote.name} className="w-20 h-20 mb-2" />
-                     <p className="text-white">{emote.name}</p>
+                     <p className="text-white truncate">{emote.name}</p>
                   </div>
                ))}
             </div>
