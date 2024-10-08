@@ -123,7 +123,7 @@ const EmoteSearch: React.FC = () => {
          <div className="flex-1 ml-0 md:ml-2">
             {error && <p className="text-red-500">{error}</p>}
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 h-[calc(100vh-33px)] overflow-y-auto ">
+            <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-7 gap-2 h-[calc(100vh-33px)] overflow-y-auto ">
                {emotes.map((emote) => (
                   <div
                      key={emote.id}
