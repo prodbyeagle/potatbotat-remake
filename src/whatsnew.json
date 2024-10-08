@@ -1,0 +1,14 @@
+{
+   "name": "Whats New?",
+   "author": "prodbyeagle",
+   "version": "v0.8",
+   "features": [
+      "Increased the size of the grid on /emotes/search",
+      "Updated the UI on several components",
+      "Enhanced modals (now fullscreen)"
+   ],
+   "bug-fixes": [
+      "Fixed the Emote Search button in the dropdown that wasn't closing the dropdown",
+      "Removed the authentication code"
+   ]
+}
