@@ -1,3 +1,5 @@
+// src/components/Home.tsx
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PartnerCard from './PartnerCard';
@@ -6,12 +8,12 @@ import Tooltip from '../Tooltip';
 import { Partner } from '../../types/Home';
 import { Paint } from '../../types/Paint';
 import Stats from '../Stats';
+import ModalContainer from '../ModalContainer';
 
 const Home: React.FC = () => {
    const [partner, setPartner] = useState<Partner | null>(null);
    const [partners, setPartners] = useState<Partner[]>([]);
    const [animationClass, setAnimationClass] = useState<string>('');
-   const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedPaint, setSelectedPaint] = useState<Paint>({
       gradient: 'radial-gradient(circle, #ffe5b8 10%, #fff 25%, #fe8b8b 35%, #fe9fc8 50%, #ff388e 75%, #ff006f 100%)',
       name: 'erm @prodbyeagle',
@@ -67,11 +69,12 @@ const Home: React.FC = () => {
       return () => clearInterval(interval);
    }, [partners]);
 
-   const handlePaintSelect = (paint: Paint) => {
+   const handlePaintSelect = (paint: Paint, removeModal: () => void) => {
       setSelectedPaint(paint);
       localStorage.setItem('selectedPaint', JSON.stringify(paint));
-      setIsModalOpen(false);
+      removeModal();
    };
+
 
    const handleSearch = () => {
       if (searchTerm.trim()) {
@@ -80,80 +83,88 @@ const Home: React.FC = () => {
    };
 
    return (
-      <div className="flex flex-col items-center justify-center h-full bg-neutral-800/50 border border-neutral-600 rounded-xl backdrop-blur-md p-4 sm:p-10">
-         <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg flex flex-col items-center">
-            <div className="flex items-center justify-center space-x-4 mb-6">
-               <Tooltip content='Click to change the Paint' position='top'>
-                  <img
-                     src="https://potat.app/tatoExplode.gif"
-                     alt="PotatBotat Logo"
-                     className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-700/50"
-                     onClick={() => !isMobile && setIsModalOpen(true)}
-                  />
-               </Tooltip>
-               <h1 className="text-4xl sm:text-5xl font-bold"
-                  style={{
-                     backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
-                     filter: selectedPaint.shadow,
-                     WebkitBackgroundClip: 'text',
-                     backgroundClip: 'text',
-                     color: 'transparent',
-                     backgroundSize: '100% auto',
-                     display: 'inline-block',
-                  }}>
-                  PotatBotat
-               </h1>
+      <ModalContainer>
+         {(addModal, removeModal) => (
+            <div className="flex flex-col items-center justify-center h-full bg-neutral-800/50 border border-neutral-600 rounded-xl backdrop-blur-md p-4 sm:p-10">
+               <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-6 sm:p-10 my-10 shadow-lg flex flex-col items-center">
+                  <div className="flex items-center justify-center space-x-4 mb-6">
+                     <Tooltip content='Click to change the Paint' position='top'>
+                        <img
+                           src="https://potat.app/tatoExplode.gif"
+                           alt="PotatBotat Logo"
+                           className="w-16 h-auto rounded-xl p-2 cursor-pointer duration-100 transition-all hover:scale-105 hover:bg-neutral-700/50"
+                           onClick={() => {
+                              if (!isMobile) {
+                                 addModal(
+                                    <PaintSelector
+                                       onSelect={(paint: Paint) => handlePaintSelect(paint, removeModal)}
+                                       isOpen={true}
+                                       onClose={removeModal}
+                                    />
+                                 );
+                              }
+                           }}
+                        />
+                     </Tooltip>
+
+
+                     <h1 className="text-4xl sm:text-5xl font-bold"
+                        style={{
+                           backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
+                           filter: selectedPaint.shadow,
+                           WebkitBackgroundClip: 'text',
+                           backgroundClip: 'text',
+                           color: 'transparent',
+                           backgroundSize: '100% auto',
+                           display: 'inline-block',
+                        }}>
+                        PotatBotat
+                     </h1>
+                  </div>
+
+                  <p className="text-lg text-white text-center mb-6">
+                     A versatile chatbot for emotes, entertainment, and utilities.
+                  </p>
+
+                  {isMobile && (
+                     <p className="text-lg text-red-500 mb-4">Paint selection is currently not available on mobile devices.</p>
+                  )}
+
+                  <div className="flex space-x-2 mb-6">
+                     <input
+                        type="text"
+                        placeholder="RyanPotat"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={(e) => {
+                           if (e.key === 'Enter') {
+                              handleSearch();
+                           }
+                        }}
+                        className="p-2 rounded-lg bg-neutral-700 border h-10 border-neutral-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                     />
+                     <button
+                        onClick={handleSearch}
+                        className="bg-neutral-800/50 hover:bg-neutral-700/50 backdrop-blur-xl h-10 border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg hover:rounded-xl transition-all"
+                     >
+                        Go!
+                     </button>
+                  </div>
+
+                  <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2>
+                  {loading ? (
+                     <p className="text-lg text-white">Loading partners...</p>
+                  ) : partner ? (
+                     <PartnerCard partner={partner} animationClass={animationClass} />
+                  ) : (
+                     <p className="text-lg text-white">No partners available.</p>
+                  )}
+
+                  <Stats />
+               </div>
             </div>
-
-            <p className="text-lg text-white text-center mb-6">
-               A versatile chatbot for emotes, entertainment, and utilities.
-            </p>
-
-            {isMobile && (
-               <p className="text-lg text-red-500 mb-4">Paint selection is currently not available on mobile devices.</p>
-            )}
-
-            <div className="flex space-x-2 mb-6">
-               <input
-                  type="text"
-                  placeholder="RyanPotat"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => {
-                     if (e.key === 'Enter') {
-                        handleSearch();
-                     }
-                  }}
-                  className="p-2 rounded-lg bg-neutral-700 border h-10 border-neutral-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-               />
-               <button
-                  onClick={handleSearch}
-                  className="bg-neutral-800/50 hover:bg-neutral-700/50 backdrop-blur-xl h-10 border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg hover:rounded-xl transition-all"
-               >
-                  Go!
-               </button>
-            </div>
-
-            <h2 className="text-2xl text-white font-semibold mt-6">Featured Partners using this Bot:</h2>
-            {loading ? (
-               <p className="text-lg text-white">Loading partners...</p>
-            ) : partner ? (
-               <PartnerCard partner={partner} animationClass={animationClass} />
-            ) : (
-               <p className="text-lg text-white">No partners available.</p>
-            )}
-
-            <Stats />
-         </div>
-
-         {!isMobile && (
-            <PaintSelector
-               isOpen={isModalOpen}
-               onClose={() => setIsModalOpen(false)}
-               onSelect={handlePaintSelect}
-            />
          )}
-      </div>
+      </ModalContainer>
    );
 };
 
