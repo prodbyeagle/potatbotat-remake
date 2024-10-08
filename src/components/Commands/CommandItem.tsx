@@ -9,8 +9,20 @@ interface CommandItemProps {
 }
 
 const CommandItem: React.FC<CommandItemProps> = ({ command }) => {
+   const renderConditions = () => {
+      const conditions = command.conditions || {};
+
+      return (
+         <div className="text-gray-400">
+            <span className="font-semibold mb-20">Whisperable:</span> {conditions.whisperable ? '✅' : '❌'} <br />
+            <span className="font-semibold">Offline Only:</span> {conditions.offlineOnly ? '✅' : '❌'} <br />
+            <span className="font-semibold">Ignore Bots:</span> {conditions.ignoreBots ? '✅' : '❌'}
+         </div>
+      );
+   };
+
    return (
-      <li className="p-4 border border-neutral-600 bg-transparent rounded-xl">
+      <li className="p-4 border border-neutral-600 bg-transparent rounded-md">
          <h3 className="text-xl font-bold text-white mb-2">
             {command.title}
             <span className="text-gray-500 italic ml-2">
@@ -34,33 +46,8 @@ const CommandItem: React.FC<CommandItemProps> = ({ command }) => {
             <span className="font-semibold">User Requires:</span> {command.userRequires ? userRequires[command.userRequires] : 'none'}
          </p>
          <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Conditions:</span> {command.conditions ? JSON.stringify(command.conditions) : 'none'}
+            <span className="font-semibold"></span> {renderConditions()}
          </p>
-         {/* other stats but dont needed */}
-         {/* <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Whitelist:</span> {command.whitelist ? command.whitelist.join(', ') : 'none'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Blacklist:</span> {command.blacklist ? command.blacklist.join(', ') : 'none'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Usage Count:</span> {command.usageCount || '0'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Silent:</span> {command.silent ? 'true' : 'false'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Is Disabled:</span> {command.isDisabled ? 'true' : 'false'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Safed Settings:</span> {command.safedSettings ? JSON.stringify(command.safedSettings) : 'none'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">File Name:</span> {command.fileName || 'none'}
-         </p>
-         <p className="text-gray-400 mb-1">
-            <span className="font-semibold">Level:</span> {command.level || 'none'}
-         </p> */}
       </li>
    );
 };

@@ -104,7 +104,7 @@ const Commands: React.FC = () => {
                <input
                   id="command-search"
                   type="text"
-                  placeholder="Search commands or aliases..."
+                  placeholder="Search commands or aliases with # ..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className={`w-[calc(100%-7px)] p-2 rounded-lg bg-neutral-800/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:shadow-2xl md:ml-2 
