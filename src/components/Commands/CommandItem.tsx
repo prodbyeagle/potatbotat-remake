@@ -22,7 +22,7 @@ const CommandItem: React.FC<CommandItemProps> = ({ command }) => {
    };
 
    return (
-      <li className="p-4 border border-neutral-600 bg-transparent rounded-md">
+      <li className="p-4 border border-neutral-600 bg-neutral-800/50 rounded-md">
          <h3 className="text-xl font-bold text-white mb-2">
             {command.title}
             <span className="text-gray-500 italic ml-2">
