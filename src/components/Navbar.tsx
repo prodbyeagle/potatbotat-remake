@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-700/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-600/50'}`
                }
             >
                Home
@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/commands"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-700/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-600/50'}`
                }
             >
                Commands
@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
             <NavLink
                to="/leaderboard"
                className={({ isActive }) =>
-                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-700/50'}`
+                  `py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-600/50 text-white' : 'hover:bg-neutral-600/50'}`
                }
             >
                Leaderboard
@@ -115,14 +115,14 @@ const Navbar: React.FC = () => {
                {dropdownOpen && (
                   <ul
                      ref={dropdownRef}
-                     className="absolute left-0 text-center top-full mt-2 p-1 w-48 backdrop-blur-md bg-neutral-600/30 border border-neutral-600 rounded-md shadow-lg z-50"
+                     className="absolute left-0 text-center top-full mt-2 p-1 w-48 backdrop-blur-sm bg-neutral-800/50 border border-neutral-600 rounded-md shadow-lg z-50"
                   >
                      <li key="urlShortener">
                         <NavLink
                            to="/redirect"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50  ${isActive ? 'bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50  ${isActive ? 'bg-neutral-700/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            URL Shortener
@@ -133,7 +133,7 @@ const Navbar: React.FC = () => {
                            to="/api/docs"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-600/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            API Docs
@@ -143,7 +143,7 @@ const Navbar: React.FC = () => {
                         <NavLink
                            to="https://haste.potat.app/"
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-600/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            Haste
@@ -154,7 +154,7 @@ const Navbar: React.FC = () => {
                            to="/emotes/search"
                            onClick={closeDropdown}
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-700/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-700/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700 hover:bg-neutral-600/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            Emote Search
@@ -195,7 +195,7 @@ const Navbar: React.FC = () => {
                         to="/commands"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         Commands
@@ -206,7 +206,7 @@ const Navbar: React.FC = () => {
                         to="/leaderboard"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         Leaderboard
@@ -217,7 +217,7 @@ const Navbar: React.FC = () => {
                         to="/redirect"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         URL Shortener
@@ -228,7 +228,7 @@ const Navbar: React.FC = () => {
                         to="/api/docs"
                         onClick={closeMenu}
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         API Docs
@@ -238,7 +238,7 @@ const Navbar: React.FC = () => {
                      <NavLink
                         to="https://haste.potat.app/"
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         Haste
@@ -248,7 +248,7 @@ const Navbar: React.FC = () => {
                      <NavLink
                         to="/emotes/search"
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
                         Emote Search
