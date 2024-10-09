@@ -44,18 +44,17 @@ const Leaderboard: React.FC = () => {
             <div className="sticky top-0 rounded-md z-auto mb-2">
                <input
                   type="text"
-                  placeholder="Search players..."
+                  placeholder="Search users..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 rounded-lg bg-transparent border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-0 md:ml-2"
+                  className="w-[calc(100%-7px)] p-2 rounded-lg bg-neutral-800/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-2 md:ml-2"
                />
             </div>
 
             {/* Leaderboard Content */}
-            <div className="bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-xl p-4 shadow-lg h-[calc(100vh-60px)] overflow-y-auto ml-0 md:ml-2">
-               <h2 className="text-2xl font-bold text-white mb-4">Leaderboard</h2>
+            <div className="bg-transparent shadow-lg h-[calc(100vh-60px)] overflow-y-auto ml-0 md:ml-2">
 
-               <ul className="space-y-4">
+               <ul className="space-y-2">
                   {filteredLeaderboard.length > 0 ? (
                      filteredLeaderboard.map((entry, index) => (
                         <LeaderboardEntry
