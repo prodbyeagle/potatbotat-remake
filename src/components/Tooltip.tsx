@@ -20,6 +20,11 @@ interface TooltipProps {
     * Default is 300 milliseconds. 
     */
    delay?: number;
+   /** 
+    * Font size class for the tooltip text. 
+    * Default is 'text-sm'.
+    */
+   fontSize?: string;
 }
 
 /** 
@@ -29,6 +34,7 @@ interface TooltipProps {
  * @param {ReactNode} children - The child element that triggers the tooltip on hover. 
  * @param {'top' | 'bottom' | 'left' | 'right'} [position='bottom'] - The position of the tooltip relative to the child element. 
  * @param {number} [delay=300] - The delay in milliseconds before the tooltip is displayed. 
+ * @param {string} [fontSize='text-sm'] - The font size class for the tooltip text. 
  * @returns {JSX.Element} The Tooltip component.
  */
 const Tooltip: React.FC<TooltipProps> = ({
@@ -36,6 +42,7 @@ const Tooltip: React.FC<TooltipProps> = ({
    children,
    position = 'bottom',
    delay = 300,
+   fontSize = 'text-xs',  // Default font size
 }): React.JSX.Element => {
    const [isVisible, setIsVisible] = useState<boolean>(false);
    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
@@ -63,12 +70,12 @@ const Tooltip: React.FC<TooltipProps> = ({
       >
          <div
             ref={tooltipRef}
-            className={`absolute z-10 px-2 py-1 bg-neutral-700 border border-neutral-600 text-white text-xs rounded-md whitespace-nowrap transition-opacity duration-300 ease-in-out 
+            className={`absolute z-10 px-2 py-1 bg-neutral-700 border border-neutral-600 text-white rounded-md whitespace-nowrap transition-opacity duration-300 ease-in-out ${fontSize} 
             ${isVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} 
-            ${position === 'bottom' ? 'top-full mt-2 left-1/2 transform -translate-x-1/2' 
-            : position === 'top' ? 'bottom-full mb-2 left-1/2 transform -translate-x-1/2' 
-            : position === 'left' ? 'right-full mr-2 top-1/2 transform -translate-y-1/2' 
-            : 'left-full ml-2 top-1/2 transform -translate-y-1/2'}`}
+            ${position === 'bottom' ? 'top-full mt-2 left-1/2 transform -translate-x-1/2'
+                  : position === 'top' ? 'bottom-full mb-2 left-1/2 transform -translate-x-1/2'
+                     : position === 'left' ? 'right-full mr-2 top-1/2 transform -translate-y-1/2'
+                        : 'left-full ml-2 top-1/2 transform -translate-y-1/2'}`}
          >
             {content}
          </div>
