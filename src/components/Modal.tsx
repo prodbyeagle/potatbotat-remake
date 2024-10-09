@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
 
    return (
       <div
-         className={`fixed inset-0 flex items-center justify-center bg-neutral-900 bg-opacity-50 backdrop-blur-md z-50 ${isOpen ? 'modal-enter' : 'modal-exit'}`}
+         className={`fixed inset-0 px-2 flex items-center justify-center bg-neutral-900 bg-opacity-50 backdrop-blur-md z-50 ${isOpen ? 'modal-enter' : 'modal-exit'}`}
       >
          <div className="bg-neutral-800/50 p-6 rounded-xl shadow-lg w-custom relative transition-all duration-100 max-h-custom overflow-y-scroll border border-neutral-600">
             <button
