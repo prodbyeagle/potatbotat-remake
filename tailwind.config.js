@@ -8,11 +8,11 @@ module.exports = {
       fontFamily: {
         'mono': ['"Jetbrains Mono"', 'monospace'],
       },
-      colors: {
-        eagle: '#cb9dff',
+      width: {
+        custom: '50rem',
       },
       maxHeight: {
-        '150': '600px',
+        custom: '50rem',
       },
     },
   },

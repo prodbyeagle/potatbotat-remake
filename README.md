@@ -1,2 +1,1 @@
 - update the docs ui
-- update the whole ui by using custom tailwind classes (config)
