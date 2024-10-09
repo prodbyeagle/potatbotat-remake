@@ -124,6 +124,10 @@ const Home: React.FC = () => {
                      A versatile chatbot for emotes, entertainment, and utilities.
                   </p>
 
+                  <p className="text-lg text-yellow-400 text-center mb-6">
+                     ⚠️ THIS IS STILL IN WORK! STUFF CAN AND WILL BE CHANGED
+                  </p>
+
                   {isMobile && (
                      <p className="text-lg text-red-500 mb-4">Paint selection is currently not available on mobile devices.</p>
                   )}
@@ -131,7 +135,7 @@ const Home: React.FC = () => {
                   <div className="flex space-x-2 mb-6">
                      <input
                         type="text"
-                        placeholder="RyanPotat"
+                        placeholder="prodbyeagle"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={(e) => {
@@ -139,12 +143,12 @@ const Home: React.FC = () => {
                               handleSearch();
                            }
                         }}
-                        className="p-2 rounded-lg bg-neutral-700 border h-10 border-neutral-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                        className="p-2 rounded-lg bg-neutral-800/40 border h-10 border-neutral-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
                      />
                      <button
                         onClick={handleSearch}
                         disabled={!searchTerm.trim()}
-                        className={`bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg transition-all w-full ${!searchTerm ? 'opacity-50 cursor-default' : 'hover:bg-neutral-700/50 hover:rounded-xl'
+                        className={`bg-neutral-800/50 backdrop-blur-xl h-10 border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg transition-all w-full ${!searchTerm ? 'opacity-50 cursor-default' : 'hover:bg-neutral-700/50 hover:rounded-xl'
                            }`}
                      >
                         Go!
