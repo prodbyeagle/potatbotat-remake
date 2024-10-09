@@ -75,7 +75,7 @@ const Commands: React.FC = () => {
                <li>
                   <button
                      onClick={() => setSelectedCategory('ALL')}
-                     className={`block w-full mb-2 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-700/50 text-white ${selectedCategory === 'ALL' ? 'bg-neutral-600' : ''}`}>
+                     className={`block w-full mb-2 text-left p-2 rounded-md duration-100 transition-all hover:bg-neutral-700/50 text-white ${selectedCategory === 'ALL' ? 'bg-neutral-700/50' : ''}`}>
                      All Categories
                   </button>
                </li>
@@ -83,7 +83,7 @@ const Commands: React.FC = () => {
                   <li key={category}>
                      <button
                         onClick={() => setSelectedCategory(category)}
-                        className={`block w-full mb-2 text-left p-2 rounded-md hover:bg-neutral-700/50 duration-100 transition-all text-white ${selectedCategory === category ? 'bg-neutral-600' : ''}`}>
+                        className={`block w-full mb-2 text-left p-2 rounded-md hover:bg-neutral-700/50 duration-100 transition-all text-white ${selectedCategory === category ? 'bg-neutral-700/50' : ''}`}>
                         {commandCategories[category as keyof typeof commandCategories]}
                      </button>
                   </li>
