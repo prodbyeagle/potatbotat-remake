@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
    const openModal = (addModal: (modal: React.ReactNode) => void) => {
       const modalContent = (
          <div className="text-white p-2">
-            <h2 className="text-2xl font-bold border-b border-neutral-600 pb-2">{whatsNewData.name} | {whatsNewData.version}</h2>
+            <h2 className="text-2xl font-bold border-b border-neutral-600 pb-2">{whatsNewData.version}</h2>
             <h3 className="font-semibold mt-4 text-2xl">Features:</h3>
             <ul className="list-disc list-inside ml-5 mt-2">
                {whatsNewData.features.map((feature, index) => (
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                   . All Rights Reserved.
                </p>
                <div className="flex items-center space-x-2 font-normal text-sm">
-                  <p onClick={() => openModal(addModal)} className="transition-all duration-300 transform cursor-pointer shine-text hover:font-black">
+                  <p onClick={() => openModal(addModal)} className="transition-all duration-300 transform cursor-pointer hover:font-black">
                      Whats New?
                   </p>
                   <p>
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
                   </p>
                   <img
                      src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f49c/512.webp"
-                     alt="Herz"
+                     alt="Heart"
                      className="w-4 h-4"
                   />
                </div>
