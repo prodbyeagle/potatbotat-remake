@@ -75,7 +75,6 @@ const Home: React.FC = () => {
       removeModal();
    };
 
-
    const handleSearch = () => {
       if (searchTerm.trim()) {
          navigate(`/u/${searchTerm.trim()}`);
@@ -106,7 +105,6 @@ const Home: React.FC = () => {
                            }}
                         />
                      </Tooltip>
-
 
                      <h1 className="text-4xl sm:text-5xl font-bold"
                         style={{
@@ -145,7 +143,9 @@ const Home: React.FC = () => {
                      />
                      <button
                         onClick={handleSearch}
-                        className="bg-neutral-800/50 hover:bg-neutral-700/50 backdrop-blur-xl h-10 border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg hover:rounded-xl transition-all"
+                        disabled={!searchTerm.trim()}
+                        className={`bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 text-white font-bold py-2 px-4 rounded-lg transition-all w-full ${!searchTerm ? 'opacity-50 cursor-default' : 'hover:bg-neutral-700/50 hover:rounded-xl'
+                           }`}
                      >
                         Go!
                      </button>
