@@ -5,6 +5,7 @@ export interface Paint {
    gradient?: string;
    shadow?: string;
    name: string;
+   description?: string;
 }
 
 export interface PaintSelectorProps {
