@@ -60,6 +60,12 @@
       "description": "Monthly Paint Selection."
    },
    {
+      "gradient": "linear-gradient(90deg, rgb(255, 92, 92) 15%, rgb(255, 172, 56) 30%, rgb(254, 249, 124) 45%, rgb(130, 255, 128) 60%, rgb(82, 189, 255) 75%, rgb(204, 128, 255) 90%)",
+      "shadow": "drop-shadow(rgb(195, 85, 85) 0px 0px 4px)",
+      "name": "Pride Month",
+      "description": "A paint that represents the theme of Pride Month."
+   },
+   {
       "url": "https://cdn.7tv.app/emote/667c887f387822a16b8f57ed/4x.webp",
       "shadow": "drop-shadow(rgb(165, 57, 254) 0px 0px 0.1px) drop-shadow(rgb(127, 17, 187) 1px 1px 0.1px)",
       "name": "TwitchCon 2024 Rotterdam",
@@ -81,11 +87,5 @@
       "shadow": "drop-shadow(rgb(73, 0, 122) 1px 1px 0.1px)",
       "name": "Whisper",
       "description": "Whisper was given to selected Creators to giveaway."
-   },
-   {
-      "gradient": "linear-gradient(90deg, rgb(255, 92, 92) 15%, rgb(255, 172, 56) 30%, rgb(254, 249, 124) 45%, rgb(130, 255, 128) 60%, rgb(82, 189, 255) 75%, rgb(204, 128, 255) 90%)",
-      "shadow": "drop-shadow(rgb(195, 85, 85) 0px 0px 4px)",
-      "name": "Pride Month",
-      "description": "A paint with a gradient that represents the theme of Pride Month."
    }
 ]
