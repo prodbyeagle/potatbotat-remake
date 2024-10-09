@@ -15,16 +15,17 @@ const PaintSelector: React.FC<PaintSelectorProps> = ({ onSelect, onClose }) => {
    return (
       <>
          <h2 className="text-3xl font-bold text-center text-white mb-6">Choose a Paint</h2>
-         <h2 className="text-sm font-normal italic text-center text-gray-400 mb-6">Something Wrong? Report it.</h2>
+         <h2 className="text-sm font-normal italic text-center text-gray-400 mb-6">Submit new Paints here: [PLACEHOLDER]</h2>
          <div className="transition duration-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-2">
             {paints.map((paint, index) => (
                <Tooltip
                   key={index}
                   content={paint.description ? paint.description : "No description available"}
                   position='top'
+                  fontSize='text-sm'
                >
                   <div
-                     className={`relative cursor-pointer rounded-xl transition-all duration-200 hover:scale-105 bg-neutral-800 overflow-hidden`}
+                     className={`relative cursor-pointer rounded-xl transition-all duration-200 hover:scale-95 bg-neutral-800 overflow-hidden`}
                      onClick={() => handlePaintSelect(paint)}
                      onMouseEnter={() => setHoveredPaintIndex(index)}
                      onMouseLeave={() => setHoveredPaintIndex(null)}
