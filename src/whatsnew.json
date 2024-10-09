@@ -1,14 +1,12 @@
 {
-   "name": "Whats New?",
    "author": "prodbyeagle",
-   "version": "v0.8",
+   "version": "v0.9.1",
    "features": [
-      "Increased the size of the grid on /emotes/search",
-      "Updated the UI on several components",
-      "Enhanced modals (now fullscreen)"
+      "Added Descriptions to Paints (Paint Creator soon!)",
+      "Updated the consistency of the whole UI",
+      "Added the ability to click on the emotes in the emote search (coming soon!)"
    ],
    "bug-fixes": [
-      "Fixed the Emote Search button in the dropdown that wasn't closing the dropdown",
-      "Removed the authentication code"
+      "Go! Button on the Homepage is now disabled when nothing was typed"
    ]
 }
