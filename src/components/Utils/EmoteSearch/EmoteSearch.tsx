@@ -148,7 +148,7 @@ const EmoteSearch: React.FC = () => {
                                        <img
                                           src="https://cdn.7tv.app/emote/66280eb62485bfc4e5792444/4x.webp"
                                           alt="Not Found"
-                                          className="w-fit h-fit mb-4 hover:animate-pulse"
+                                          className="w-fit h-fit mb-4"
                                        />
                                        <h2 className="text-2xl text-center font-bold">This Feature is Coming Soon!</h2>
                                     </div>

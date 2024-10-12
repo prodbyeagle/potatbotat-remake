@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { NavLink } from 'react-router-dom';
 import Tooltip from './Tooltip';
+import { Paint } from '../types/Paint';
 
 const Navbar: React.FC = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -10,6 +11,11 @@ const Navbar: React.FC = () => {
    const dropdownRef = useRef<HTMLUListElement | null>(null);
    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
    const [badgeImage, setBadgeImage] = useState<string | null>(null);
+   const [selectedPaint, setSelectedPaint] = useState<Paint>({
+      gradient: 'radial-gradient(circle, #ffe5b8 10%, #fff 25%, #fe8b8b 35%, #fe9fc8 50%, #ff388e 75%, #ff006f 100%)',
+      name: 'erm @prodbyeagle',
+      shadow: 'drop-shadow(#ff007b 0px 0px 0.1px) drop-shadow(#ff007b 0px 0px 4px)',
+   });
 
    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
    const closeDropdown = () => setDropdownOpen(false);
@@ -41,6 +47,18 @@ const Navbar: React.FC = () => {
          window.removeEventListener('resize', handleResize);
          document.removeEventListener('mousedown', handleClickOutside);
       };
+   }, []);
+
+   useEffect(() => {
+      const savedPaint = localStorage.getItem('selectedPaint');
+      if (savedPaint) {
+         try {
+            const paintData = JSON.parse(savedPaint);
+            setSelectedPaint(paintData);
+         } catch (error) {
+            console.error('Error parsing saved paint:', error);
+         }
+      }
    }, []);
 
    useEffect(() => {
@@ -80,7 +98,7 @@ const Navbar: React.FC = () => {
             />
          </NavLink>
 
-         <div className="hidden md:flex flex-grow justify-center space-x-2 items-center">
+         <div className="hidden md:flex flex-grow justify-center space-x-1 items-center">
             <NavLink
                to="/"
                className={({ isActive }) =>
@@ -130,10 +148,9 @@ const Navbar: React.FC = () => {
                      </li>
                      <li key="apiDocs">
                         <NavLink
-                           to="/api/docs"
-                           onClick={closeDropdown}
+                           to="#"
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-600/50 text-yellow-400' : 'text-white'}`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 cursor-default text-gray-500`
                            }
                         >
                            API Docs
@@ -225,10 +242,10 @@ const Navbar: React.FC = () => {
                   </li>
                   <li key="apiDocsMenu">
                      <NavLink
-                        to="/api/docs"
                         onClick={closeMenu}
+                        to="#"
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
+                           `block py-2 px-4 rounded-md transition duration-100 cursor-default text-gray-500`
                         }
                      >
                         API Docs
@@ -280,8 +297,8 @@ const Navbar: React.FC = () => {
                         />
                         <span
                            style={{
-                              backgroundImage: "radial-gradient(circle, rgb(238, 255, 0) 0%, rgb(166, 255, 0) 50%, rgb(93, 195, 9) 100%)",
-                              filter: "drop-shadow(rgb(189, 225, 9) 0px 0px 4px)",
+                              backgroundImage: selectedPaint.url ? `url(${selectedPaint.url})` : selectedPaint.gradient,
+                              filter: selectedPaint.shadow,
                               WebkitBackgroundClip: 'text',
                               backgroundClip: 'text',
                               color: 'transparent',

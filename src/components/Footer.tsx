@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                   . All Rights Reserved.
                </p>
                <div className="flex items-center space-x-2 font-normal text-sm">
-                  <p onClick={() => openModal(addModal)} className="transition-all duration-300 transform cursor-pointer hover:font-black">
+                  <p onClick={() => openModal(addModal)} className="transition-all p-1 rounded-xl hover:rounded-lg duration-300 transform bg-neutral-700/50 cursor-pointer hover:font-black">
                      Whats New?
                   </p>
                   <p>
