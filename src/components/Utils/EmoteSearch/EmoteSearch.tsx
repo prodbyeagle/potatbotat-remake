@@ -3,6 +3,8 @@ import ModalContainer from '../../ModalContainer';
 import { Emote } from '../../../types/Emote';
 import EmoteLoader from './EmoteLoader';
 
+const emoteCache: { [emoteCode: string]: any } = {};
+
 const EmoteSearch: React.FC = () => {
    const [searchTerm, setSearchTerm] = useState('');
    const [searchType, setSearchType] = useState('starts');
@@ -19,7 +21,12 @@ const EmoteSearch: React.FC = () => {
       const url = `https://api.potat.app/twitch/emotes/search?${searchType}=${searchTerm}&case=${caseSensitive}&first=200`;
 
       try {
-         const response = await fetch(url);
+         const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+               'Cache-Control': 'no-cache',
+            },
+         });
          const data = await response.json();
 
          if (formatFilter !== 'all') {
@@ -35,16 +42,34 @@ const EmoteSearch: React.FC = () => {
    };
 
    const fetchEmoteDetails = async (emoteCode: string) => {
+      if (emoteCache[emoteCode]) {
+         return emoteCache[emoteCode];
+      }
+
       const url = `https://api.potat.app/twitch/emotes?name=${emoteCode}`;
       try {
          const response = await fetch(url);
+
+         if (!response.ok) {
+            console.error(`[ERROR] Failed to fetch emote details. Status: ${response.status} ${response.statusText}`);
+            return null;
+         }
+
          const data = await response.json();
-         if (data.data.length > 0) {
-            return data.data[0];
+
+         if (Array.isArray(data.data) && data.data.length > 0 && Array.isArray(data.data[0])) {
+            const emoteDetails = data.data[0][0];
+            if (emoteDetails) {
+               emoteCache[emoteCode] = emoteDetails;
+               // console.log(`[CACHE] Storing emote details for ${emoteCode}`);
+               return emoteDetails;
+            }
          }
       } catch (err) {
-         setError('Failed to fetch emote details');
+         console.error(`[ERROR] Exception occurred while fetching emote details for ${emoteCode}:`, err);
+         setError(`Failed to fetch emote details due to an error`);
       }
+
       return null;
    };
 
@@ -141,29 +166,79 @@ const EmoteSearch: React.FC = () => {
                               className="flex flex-col items-center bg-neutral-800/50 p-4 rounded-lg border border-neutral-600 cursor-pointer"
                               onClick={async () => {
                                  const emoteDetails = await fetchEmoteDetails(emote.name);
+
+                                 if (!emoteDetails) {
+                                    addModal(
+                                       <div className="flex flex-col items-center justify-center h-fit text-white text-center">
+                                          <h2 className="text-xl text-red-500 font-bold">Failed to load emote details</h2>
+                                          <p className="text-lg">Please click this emote again.</p>
+                                       </div>
+                                    );
+                                    return;
+                                 }
+
                                  addModal(
-                                    <div className="flex flex-col items-center justify-center h-fit text-white text-center">
-                                       <>
-                                          <img
-                                             src={emoteDetails ? emoteDetails.emoteURL : "❌ no image"}
-                                             alt={emoteDetails ? emoteDetails.emoteCode : "❌ no image"}
-                                             className="w-fit h-fit mb-4"
-                                          />
-                                          <h2 className="text-sm text-yellow-400 text-center font-bold">
-                                             Oops! There seems to be a loading issue. Sometimes the Data will show...
-                                          </h2>
-                                          <h3 className="text-xl text-center font-semibold">{emoteDetails ? emoteDetails.emoteCode : "❌"}</h3>
-                                          <p className="text-lg">Channel: {emoteDetails?.channelName || "❌"}</p>
-                                          <p className="text-lg">Type: {emoteDetails?.emoteType || "❌"}</p>
-                                          <p className="text-lg">Tier: {emoteDetails?.emoteTier || "❌"}</p>
-                                          <p className="text-md text-gray-300 mt-2">Please try refreshing or check back later.</p>
-                                       </>
+                                    <div className="flex flex-col items-center justify-center h-fit text-white text-center p-4">
+                                       <img
+                                          src={emoteDetails.emoteURL || "❌ no image"}
+                                          alt={emoteDetails.emoteCode || "❌ no image"}
+                                          className="w-32 h-32 mb-4"
+                                       />
+                                       <h2 className="text-xl font-bold mb-2">{emoteDetails.emoteCode || "❌"}</h2>
+
+                                       <div className="grid grid-cols-2 gap-4 text-left">
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Channel Name</p>
+                                             <p className="text-lg">{emoteDetails.channelName || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Login</p>
+                                             <p className="text-lg">{emoteDetails.channelLogin || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Prefix</p>
+                                             <p className="text-lg">{emoteDetails.emotePrefix || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Suffix</p>
+                                             <p className="text-lg">{emoteDetails.emoteSuffix || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Asset Type</p>
+                                             <p className="text-lg">{emoteDetails.emoteAssetType || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">State</p>
+                                             <p className="text-lg">{emoteDetails.emoteState || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Type</p>
+                                             <p className="text-lg">{emoteDetails.emoteType || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Tier</p>
+                                             <p className="text-lg">{emoteDetails.emoteTier || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Set ID</p>
+                                             <p className="text-lg truncate">{emoteDetails.emoteSetID || "❌"}</p>
+                                          </div>
+                                          <div>
+                                             <p className="text-sm text-neutral-400">Source</p>
+                                             <p className="text-lg">{emoteDetails.source || "❌"}</p>
+                                          </div>
+                                       </div>
                                     </div>
                                  );
+
                               }}
                            >
-                              <img src={emote.url} alt={emote.name} className="w-20 h-20 mb-2" />
-                              <p className="text-white truncate">{emote.name}</p>
+                              <img
+                                 src={emote.url || ''}
+                                 alt={emote.name}
+                                 className="max-w-[64px] max-h-[64px] mb-2"
+                              />
+                              <span className="text-sm text-white text-center break-words">{emote.name}</span>
                            </div>
                         ))}
                      </div>
