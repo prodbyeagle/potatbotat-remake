@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import EmoteLoader from './EmoteLoader';
 import ModalContainer from '../../ModalContainer';
-import { Emote, EmoteDetails } from '../../../types/Emote';
+import { Emote } from '../../../types/Emote';
+import EmoteLoader from './EmoteLoader';
 
 const EmoteSearch: React.FC = () => {
    const [searchTerm, setSearchTerm] = useState('');
@@ -11,8 +11,6 @@ const EmoteSearch: React.FC = () => {
    const [emotes, setEmotes] = useState<Emote[]>([]);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string | null>(null);
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const [selectedEmote, setSelectedEmote] = useState<EmoteDetails | null>(null);
 
    const fetchEmotes = async () => {
       setLoading(true);
@@ -42,16 +40,17 @@ const EmoteSearch: React.FC = () => {
          const response = await fetch(url);
          const data = await response.json();
          if (data.data.length > 0) {
-            setSelectedEmote(data.data[0]); // Set the first emote's details
+            return data.data[0];
          }
       } catch (err) {
          setError('Failed to fetch emote details');
       }
+      return null;
    };
 
    return (
       <ModalContainer>
-         {(addModal, removeModal) => (
+         {(addModal) => (
             <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
                <aside className="w-full lg:w-1/6 bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 lg:h-auto mb-2 lg:mb-0">
                   <h2 className="text-lg font-bold text-white mb-2">Search Options</h2>
@@ -81,7 +80,7 @@ const EmoteSearch: React.FC = () => {
                         <select
                            value={formatFilter}
                            onChange={(e) => setFormatFilter(e.target.value)}
-                           className="p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 h-15 text-white w-full"
+                           className="p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white h-15 w-full"
                         >
                            <option value="all">All</option>
                            <option value="static">Static</option>
@@ -130,7 +129,6 @@ const EmoteSearch: React.FC = () => {
                <div className="flex-1 ml-0 md:ml-2">
                   {error && <p className="text-red-500">{error}</p>}
 
-                  {/* Show loading indicator here */}
                   {loading ? (
                      <div className="flex justify-center items-center h-full">
                         <EmoteLoader />
@@ -141,16 +139,25 @@ const EmoteSearch: React.FC = () => {
                            <div
                               key={emote.id}
                               className="flex flex-col items-center bg-neutral-800/50 p-4 rounded-lg border border-neutral-600 cursor-pointer"
-                              onClick={() => {
-                                 fetchEmoteDetails(emote.name); // Fetch details on click
+                              onClick={async () => {
+                                 const emoteDetails = await fetchEmoteDetails(emote.name);
                                  addModal(
                                     <div className="flex flex-col items-center justify-center h-fit text-white text-center">
-                                       <img
-                                          src="https://cdn.7tv.app/emote/66280eb62485bfc4e5792444/4x.webp"
-                                          alt="Not Found"
-                                          className="w-fit h-fit mb-4"
-                                       />
-                                       <h2 className="text-2xl text-center font-bold">This Feature is Coming Soon!</h2>
+                                       <>
+                                          <img
+                                             src={emoteDetails ? emoteDetails.emoteURL : "❌ no image"}
+                                             alt={emoteDetails ? emoteDetails.emoteCode : "❌ no image"}
+                                             className="w-fit h-fit mb-4"
+                                          />
+                                          <h2 className="text-sm text-yellow-400 text-center font-bold">
+                                             Oops! There seems to be a loading issue. Sometimes the Data will show...
+                                          </h2>
+                                          <h3 className="text-xl text-center font-semibold">{emoteDetails ? emoteDetails.emoteCode : "❌"}</h3>
+                                          <p className="text-lg">Channel: {emoteDetails?.channelName || "❌"}</p>
+                                          <p className="text-lg">Type: {emoteDetails?.emoteType || "❌"}</p>
+                                          <p className="text-lg">Tier: {emoteDetails?.emoteTier || "❌"}</p>
+                                          <p className="text-md text-gray-300 mt-2">Please try refreshing or check back later.</p>
+                                       </>
                                     </div>
                                  );
                               }}
