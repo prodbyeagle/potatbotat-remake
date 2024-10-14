@@ -1,12 +1,10 @@
 {
    "author": "prodbyeagle",
-   "version": "v0.9.1",
+   "version": "v0.9.2",
    "features": [
-      "Added Descriptions to Paints (Paint Creator soon!)",
-      "Updated the consistency of the whole UI",
-      "Added the ability to click on the emotes in the emote search (coming soon!)"
+      "Added the ability to click on the emotes in the emote search (currently bugged.)"
    ],
    "bug-fixes": [
-      "Go! Button on the Homepage is now disabled when nothing was typed"
+      "None."
    ]
 }
