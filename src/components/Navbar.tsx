@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // user is already logged in can be disabled tho.
    const dropdownRef = useRef<HTMLUListElement | null>(null);
    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
-   const [badgeImage, setBadgeImage] = useState<string | null>(null);
+   // const [badgeImage, setBadgeImage] = useState<string | null>(null);
    const [selectedPaint, setSelectedPaint] = useState<Paint>({
       gradient: 'radial-gradient(circle, #ffe5b8 10%, #fff 25%, #fe8b8b 35%, #fe9fc8 50%, #ff388e 75%, #ff006f 100%)',
       name: 'erm @prodbyeagle',
@@ -61,35 +61,35 @@ const Navbar: React.FC = () => {
       }
    }, []);
 
-   useEffect(() => {
-      const fetchBadge = async () => {
-         try {
-            const response = await fetch('https://chatterinohomies.com/api/badges/list');
-            const data = await response.json();
+   // useEffect(() => {
+   //    const fetchBadge = async () => {
+   //       try {
+   //          const response = await fetch('https://chatterinohomies.com/api/badges/list');
+   //          const data = await response.json();
 
-            if (Array.isArray(data.badges)) {
-               const userBadge = data.badges.find((badge: { username: string }) => badge.username === 'prodbyeagle');
-               if (userBadge) {
-                  setBadgeImage(userBadge.image3);
-               }
-            } else {
-               console.error('Expected badges to be an array, but received:', data.badges);
-            }
-         } catch (error) {
-            console.error('Failed to fetch badge:', error);
-         }
-      };
-      fetchBadge();
-   }, []);
+   //          if (Array.isArray(data.badges)) {
+   //             const userBadge = data.badges.find((badge: { username: string }) => badge.username === 'prodbyeagle');
+   //             if (userBadge) {
+   //                setBadgeImage(userBadge.image3);
+   //             }
+   //          } else {
+   //             console.error('Expected badges to be an array, but received:', data.badges);
+   //          }
+   //       } catch (error) {
+   //          console.error('Failed to fetch badge:', error);
+   //       }
+   //    };
+   //    fetchBadge();
+   // }, []);
 
-   const utcTimestamp = "2023-12-23T01:20:10.645Z"; // first seen timestamp from prodbyeagle
+   const utcTimestamp = "2023-12-23T01:20:10.645Z"; // first seen timestamp from prodbyeagles First Login
    const getTimeDifference = (utcString: string) => {
       const date = new Date(utcString);
       return formatDistanceToNow(date, { addSuffix: true });
    };
 
    return (
-      <nav className="border border-neutral-600 bg-neutral-800/50 text-white text-md rounded-xl backdrop-blur-xl p-2 shadow-lg mb-4 flex items-center justify-between z-50 relative">
+      <nav className="border border-neutral-600 bg-neutral-800/50 text-white text-md rounded-xl backdrop-blur-xl p-2 shadow-lg mb-2 flex items-center justify-between z-50 relative">
          <NavLink to="/" className="mr-4">
             <img
                src="https://potat.app/tatoExplode.gif"
@@ -148,9 +148,9 @@ const Navbar: React.FC = () => {
                      </li>
                      <li key="apiDocs">
                         <NavLink
-                           to="#"
+                           to="api/docs"
                            className={({ isActive }) =>
-                              `block py-2 px-4 rounded-md mb-1 transition duration-100 cursor-default text-gray-500`
+                              `block py-2 px-4 rounded-md mb-1 transition duration-100 hover:bg-neutral-600/50 ${isActive ? 'bg-neutral-700/50 hover:bg-neutral-600/50 text-yellow-400' : 'text-white'}`
                            }
                         >
                            API Docs
@@ -243,11 +243,15 @@ const Navbar: React.FC = () => {
                   <li key="apiDocsMenu">
                      <NavLink
                         onClick={closeMenu}
-                        to="#"
+                        to="/api/docs"
                         className={({ isActive }) =>
-                           `block py-2 px-4 rounded-md transition duration-100 cursor-default text-gray-500`
+                           `block py-2 px-4 rounded-md transition duration-100 ${isActive ? 'bg-neutral-700/50 text-white' : 'hover:bg-neutral-700/50'}`
                         }
                      >
+                        {/* className={({ isActive }) =>
+                           `block py-2 px-4 rounded-md transition duration-100 cursor-default text-gray-500`             // disabled design
+                        }
+                     > */}
                         API Docs
                      </NavLink>
                   </li>
@@ -309,7 +313,7 @@ const Navbar: React.FC = () => {
                         >
                            @prodbyeagle
                         </span>
-                        {badgeImage && <img src={badgeImage} alt="Badge" className="w-5 h-5" />}
+                        {/* {badgeImage && <img src={badgeImage} alt="Badge" className="w-5 h-5" />} */}
                      </div>
                   ) : (
                      <button
