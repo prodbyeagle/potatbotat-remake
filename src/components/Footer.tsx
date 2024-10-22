@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
                   <p>
                      Made by{' '}
                      <a
-                        href="https://twitter.com/prodbyeagle"
+                        href="https://prodbyeagle.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="transition-all duration-300 transform eagle-text hover:font-black"
