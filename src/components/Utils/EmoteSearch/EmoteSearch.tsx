@@ -18,7 +18,7 @@ const EmoteSearch: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const url = `https://api.potat.app/twitch/emotes/search?${searchType}=${searchTerm}&case=${caseSensitive}&first=200`;
+      const url = `https://api.potat.app/twitch/emotes/search?${searchType}=${searchTerm}&case=${caseSensitive}&first=125`;
 
       try {
          const response = await fetch(url, {
@@ -159,7 +159,7 @@ const EmoteSearch: React.FC = () => {
                         <EmoteLoader />
                      </div>
                   ) : (
-                     <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 h-[calc(100vh-33px)] overflow-y-auto">
+                     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-7 gap-2 h-[calc(100vh-33px)] overflow-y-auto">
                         {emotes.map((emote) => (
                            <div
                               key={emote.id}
@@ -238,7 +238,7 @@ const EmoteSearch: React.FC = () => {
                                  alt={emote.name}
                                  className="max-w-[64px] max-h-[64px] mb-2"
                               />
-                              <span className="text-sm text-white text-center break-words">{emote.name}</span>
+                              <span className="text-sm text-white text-center truncate">{emote.name}</span>
                            </div>
                         ))}
                      </div>
