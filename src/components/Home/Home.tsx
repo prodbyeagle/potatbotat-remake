@@ -124,15 +124,13 @@ const Home: React.FC = () => {
                      A versatile chatbot for emotes, entertainment, and utilities.
                   </p>
 
-                  <p className="text-lg text-yellow-400 text-center mb-6">
-                     ⚠️ THIS IS STILL IN WORK! STUFF CAN AND WILL BE CHANGED
-                  </p>
-
                   {isMobile && (
                      <p className="text-lg text-red-500 mb-4">Paint selection is currently not available on mobile devices.</p>
                   )}
 
-                  <h2 className="text-2xl text-white font-semibold my-6">Search for your User Stats!</h2>
+                  <hr className="border-t border-neutral-600 my-6 w-full" />
+
+                  <h2 className="text-2xl text-white font-semibold mb-6">Search for your User Stats!</h2>
 
                   <div className="flex space-x-2 mb-6">
                      <input
