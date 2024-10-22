@@ -65,7 +65,7 @@ const User: React.FC = () => {
    const potatoes = userData.potatoes || { count: 0, rank: 0 };
 
    return (
-      <div className="bg-neutral-700/40 p-2 rounded-xl border border-neutral-600 backdrop-blur-lg text-white">
+      <div className="bg-neutral-800/40 p-2 rounded-xl border border-neutral-600 backdrop-blur-lg text-white">
          <div className="flex flex-col sm:flex-row rounded-lg items-center mb-2 p-2 border border-neutral-600 bg-neutral-800/40 backdrop-blur-lg">
             {userData?.user.connections.map((connection) => {
                if (connection.platform === 'TWITCH' && connection.pfp) {

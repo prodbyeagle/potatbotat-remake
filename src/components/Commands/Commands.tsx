@@ -68,7 +68,7 @@ const Commands: React.FC = () => {
    const categories = Object.keys(commandCategories);
 
    return (
-      <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
+      <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-800/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
          <aside className="w-full lg:w-1/6 bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 lg:h-fit mb-2 lg:mb-0">
             <h2 className="text-lg font-bold text-white mb-2">Categories</h2>
             <ul>

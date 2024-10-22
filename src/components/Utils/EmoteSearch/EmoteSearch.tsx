@@ -76,7 +76,7 @@ const EmoteSearch: React.FC = () => {
    return (
       <ModalContainer>
          {(addModal) => (
-            <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-700/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
+            <div className="flex flex-col lg:flex-row lg:h-screen duration-100 transition-all bg-neutral-800/40 p-2 border border-neutral-600 backdrop-blur-lg rounded-xl text-white relative z-10">
                <aside className="w-full lg:w-1/6 bg-neutral-800/50 backdrop-blur-xl border border-neutral-600 rounded-lg p-4 lg:h-auto mb-2 lg:mb-0">
                   <h2 className="text-lg font-bold text-white mb-2">Search Options</h2>
                   <ul>
@@ -84,7 +84,7 @@ const EmoteSearch: React.FC = () => {
                         <input
                            type="text"
                            placeholder="Search emotes..."
-                           className="p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none h-15 w-full"
+                           className="p-2 rounded-lg bg-neutral-800/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none h-15 w-full"
                            value={searchTerm}
                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -93,7 +93,7 @@ const EmoteSearch: React.FC = () => {
                         <select
                            value={searchType}
                            onChange={(e) => setSearchType(e.target.value)}
-                           className="p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white h-15 w-full"
+                           className="p-2 rounded-lg bg-neutral-800/40 border border-neutral-600 text-white h-15 w-full"
                         >
                            <option value="matches">Matches</option>
                            <option value="starts">Starts with</option>
@@ -105,7 +105,7 @@ const EmoteSearch: React.FC = () => {
                         <select
                            value={formatFilter}
                            onChange={(e) => setFormatFilter(e.target.value)}
-                           className="p-2 rounded-lg bg-neutral-700/40 border border-neutral-600 text-white h-15 w-full"
+                           className="p-2 rounded-lg bg-neutral-800/40 border border-neutral-600 text-white h-15 w-full"
                         >
                            <option value="all">All</option>
                            <option value="static">Static</option>
