@@ -17,7 +17,7 @@ import EmoteSearch from './components/Utils/EmoteSearch/EmoteSearch';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="bg-neutral-900 p-3 relative min-h-screen">
+      <div className="bg-neutral-900 p-2 relative min-h-screen">
         <img
           src="https://potat.app/Home.png"
           alt="Background"
