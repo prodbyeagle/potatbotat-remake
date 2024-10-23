@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ModalContainer from '../../ModalContainer';
 import { Emote } from '../../../types/Emote';
 import EmoteLoader from './EmoteLoader';
+import ContextMenu from '../../ContextMenu';
 
 const emoteCache: { [emoteCode: string]: any } = {};
 
@@ -13,6 +14,7 @@ const EmoteSearch: React.FC = () => {
    const [emotes, setEmotes] = useState<Emote[]>([]);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<string | null>(null);
+   const [contextMenu, setContextMenu] = useState<{ x: number, y: number, emoteUrl: string, format: string } | null>(null);
 
    const fetchEmotes = async () => {
       setLoading(true);
@@ -29,11 +31,11 @@ const EmoteSearch: React.FC = () => {
          });
          const data = await response.json();
 
-         if (formatFilter !== 'all') {
-            setEmotes(data.data.filter((emote: Emote) => emote.format.toLowerCase() === formatFilter));
-         } else {
-            setEmotes(data.data);
-         }
+         const filteredEmotes = formatFilter !== 'all'
+            ? data.data.filter((emote: Emote) => emote.format.toLowerCase() === formatFilter)
+            : data.data;
+
+         setEmotes(filteredEmotes);
       } catch (err) {
          setError('Failed to fetch emotes');
       } finally {
@@ -73,6 +75,11 @@ const EmoteSearch: React.FC = () => {
       return null;
    };
 
+   const handleContextMenu = (event: React.MouseEvent, emoteUrl: string, format: string) => {
+      event.preventDefault();
+      setContextMenu({ x: event.clientX, y: event.clientY, emoteUrl, format });
+   };
+
    return (
       <ModalContainer>
          {(addModal) => (
@@ -87,6 +94,11 @@ const EmoteSearch: React.FC = () => {
                            className="p-2 rounded-lg bg-neutral-800/40 border border-neutral-600 text-white placeholder-gray-400 focus:outline-none h-15 w-full"
                            value={searchTerm}
                            onChange={(e) => setSearchTerm(e.target.value)}
+                           onKeyDown={(e) => {
+                              if (e.key === 'Enter' && searchTerm) {
+                                 fetchEmotes();
+                              }
+                           }}
                         />
                      </li>
                      <li className="mb-2">
@@ -151,7 +163,7 @@ const EmoteSearch: React.FC = () => {
                   </button>
                </aside>
 
-               <div className="flex-1 ml-0 md:ml-2">
+               <div className="flex-1 ml-0 md:ml-2 relative">
                   {error && <p className="text-red-500">{error}</p>}
 
                   {loading ? (
@@ -164,6 +176,7 @@ const EmoteSearch: React.FC = () => {
                            <div
                               key={emote.id}
                               className="flex flex-col items-center bg-neutral-800/50 p-4 rounded-lg border border-neutral-600 cursor-pointer"
+                              onContextMenu={(e) => handleContextMenu(e, emote.url || '', emote.format || 'png')}
                               onClick={async () => {
                                  const emoteDetails = await fetchEmoteDetails(emote.name);
 
@@ -242,6 +255,22 @@ const EmoteSearch: React.FC = () => {
                            </div>
                         ))}
                      </div>
+                  )}
+
+                  {contextMenu && (
+                     <ContextMenu
+                        x={contextMenu.x}
+                        y={contextMenu.y}
+                        onClose={() => setContextMenu(null)}
+                     >
+                        <li>
+                           <button
+                              // onClick={}
+                              className="p-2 rounded-lg w-full cursor-default">
+                              You found me... dont tell anyone 🤫
+                           </button>
+                        </li>
+                     </ContextMenu>
                   )}
                </div>
             </div>
